@@ -3,35 +3,47 @@ using UnityEngine.AI;
 
 public class Unit : MonoBehaviour
 {
-	private NavMeshAgent agent;
+    public GameObject selectionMarker;
 
-	// PROTOTYPE
-	public Camera sceneCamera;
-	private Plane groundPlane;
-	// END PROTOTYPE
+    protected bool selected;
 
-	// ================================
-	void Start()
-	{
-		this.agent = GetComponent<NavMeshAgent>();
+    // PROTOTYPE
+    public UnitManager manager;
 
-		this.groundPlane.SetNormalAndPosition(Vector3.up, Vector3.zero);
-	}
-	
-	// ================================
-	void Update()
-	{
-		if (Input.GetMouseButtonDown(1))
-		{
-			// Calcular posicion de destino
-			Ray ray = sceneCamera.ScreenPointToRay(Input.mousePosition);
-			float distance;
+    public bool IsSelected
+    {
+        get
+        {
+            return this.selected;
+        }
+        set
+        {
+            // Mostrar u ocultar el icono de seleccion
+            this.selectionMarker.SetActive(value);
+            this.selected = value;
+        }
+    }
+    // ========================================
+    void Start()
+    {
+        this.IsSelected = false;
 
-			groundPlane.Raycast(ray, out distance);
-			Vector3 point = ray.GetPoint(distance);
+        this.manager = GameObject.FindObjectOfType<UnitManager>();
 
-			// Mover el agente
-			this.agent.SetDestination(point);
-		}
-	}
+        this.manager.units.Add(this);
+
+        this.Init();
+    }
+    // ========================================
+    void OnDestroy()
+    {
+        // this.manager.RemoveUnit(this);
+    }
+    // ========================================
+    public virtual void Init() { }
+
+    // ========================================
+    // EXECUTE ORDER 66
+    // ========================================
+    public virtual void ExecuteOrder(Vector3 worldPos) { }
 }

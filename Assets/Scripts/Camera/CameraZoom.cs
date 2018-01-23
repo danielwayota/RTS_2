@@ -2,28 +2,28 @@
 
 public class CameraZoom : MonoBehaviour
 {
-	public Camera sceneCamera;
-	public float minSize = 8;
-	public float maxSize = 16;
+    public Camera sceneCamera;
+    public float minSize = 8;
+    public float maxSize = 16;
 
-	private float currentSize;
+    private float currentSize;
 
-	// ================================
-	void Start()
-	{
-		this.currentSize = this.sceneCamera.orthographicSize;
-	}
-	
-	// ================================
-	void Update()
-	{
-		if (Input.mouseScrollDelta.y != 0)
-		{
-			this.currentSize -= Input.mouseScrollDelta.y;
+    // ================================
+    void Start()
+    {
+        this.currentSize = this.sceneCamera.orthographicSize;
+    }
 
-			this.currentSize = Mathf.Clamp(this.currentSize, this.minSize, this.maxSize);
+    // ================================
+    void Update()
+    {
+        if (Input.mouseScrollDelta.y != 0)
+        {
+            this.currentSize -= Input.mouseScrollDelta.y;
 
-			this.sceneCamera.orthographicSize = this.currentSize;
-		}
-	}
+            this.currentSize = Mathf.Clamp(this.currentSize, this.minSize, this.maxSize);
+
+            this.sceneCamera.orthographicSize = this.currentSize;
+        }
+    }
 }
