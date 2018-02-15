@@ -8,6 +8,7 @@ public class SelectionBox : MonoBehaviour
 
     private Vector3 mouseStart;
 
+    private float minSize;
 
     // ================================
     void Start()
@@ -16,8 +17,15 @@ public class SelectionBox : MonoBehaviour
 
         this.rectTransform = GetComponent<RectTransform>();
         this.rectTransform.gameObject.SetActive(false);
+
+        this.minSize = (Screen.width * 0.05f + Screen.height * 0.05f) / 2f;
     }
 
+    // ================================
+    public bool IsValid()
+    {
+        return this.selectionRect.size.magnitude > this.minSize;
+    }
     // ================================
     public void Begin(Vector3 mousePos)
     {

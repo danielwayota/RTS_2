@@ -18,8 +18,8 @@ public class UnitManager : MonoBehaviour
     // ================================
     void Start()
     {
-        this.units = new List<Unit>();
-        this.selectedUnits = new List<Unit>();
+        // this.units = new List<Unit>();
+        // this.selectedUnits = new List<Unit>();
 
         this.groundPlane.SetNormalAndPosition(Vector3.up, Vector3.zero);
 
@@ -72,6 +72,33 @@ public class UnitManager : MonoBehaviour
         {
             this.selectionBox.End();
             this.selecting = false;
+
+            if (!this.selectionBox.IsValid())
+            {
+                // Limpiar selección anterior
+                for (int i = 0; i < this.selectedUnits.Count; i++)
+                {
+                    this.selectedUnits[i].IsSelected = false;
+                }
+                this.selectedUnits.Clear();
+
+                Ray ray = this.sceneCamera.ScreenPointToRay(Input.mousePosition);
+                RaycastHit hit;
+
+                if (Physics.Raycast(ray, out hit, 100))
+                {
+                    GameObject go = hit.collider.gameObject;
+
+                    Unit u = go.GetComponent<Unit>();
+
+                    if (u != null)
+                    {
+                        u.IsSelected = true;
+                        this.selectedUnits.Add(u);
+                    }
+                }
+
+            }
         }
 
         if (Input.GetMouseButtonDown(1))

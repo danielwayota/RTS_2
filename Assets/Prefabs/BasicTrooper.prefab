@@ -313,6 +313,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   selectionMarker: {fileID: 1338121541138382}
   manager: {fileID: 0}
+  faction: {fileID: 0}
+  renderers:
+  - {fileID: 23724200651296504}
 --- !u!136 &136281669786395774
 CapsuleCollider:
   m_ObjectHideFlags: 1
