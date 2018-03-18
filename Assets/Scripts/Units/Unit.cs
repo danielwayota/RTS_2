@@ -32,7 +32,7 @@ public class Unit : MonoBehaviour
     {
         this.IsSelected = false;
 
-        this.manager = GameObject.FindObjectOfType<UnitManager>();
+        this.manager = this.faction.unitManager;
 
         this.manager.units.Add(this);
 
