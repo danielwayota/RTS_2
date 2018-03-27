@@ -46,7 +46,7 @@ public class Unit : MonoBehaviour
     // ========================================
     void OnDestroy()
     {
-        // this.manager.RemoveUnit(this);
+        this.manager.RemoveUnit(this);
     }
     // ========================================
     public virtual void Init() { }

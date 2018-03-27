@@ -13,4 +13,9 @@ public class UnitManager : MonoBehaviour
     {
         this.faction = GetComponent<Faction>();
     }
+
+    public virtual void RemoveUnit(Unit u)
+    {
+        this.units.Remove(u);
+    }
 }

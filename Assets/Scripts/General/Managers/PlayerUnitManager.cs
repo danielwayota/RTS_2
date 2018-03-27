@@ -119,4 +119,10 @@ public class PlayerUnitManager : UnitManager {
             }
         }
     }
+
+    public override void RemoveUnit(Unit u)
+    {
+        this.units.Remove(u);
+        this.selectedUnits.Remove(u);
+    }
 }
