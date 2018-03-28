@@ -42,6 +42,7 @@ public class Weapon : MonoBehaviour {
         }
     }
 
+	// =================================
 	public void Shoot()
 	{
 		this.isReady = false;
@@ -55,8 +56,10 @@ public class Weapon : MonoBehaviour {
 		p.GetComponent<Projectile>().weapon = this;
 	}
 
+	// =================================
 	public void OnProjectileCollision(Projectile projectile, Unit unit)
 	{
+		// Hacer daño a la otra unidad si es un enemigo.
 		if (unit.faction != this.unit.faction)
 		{
 			unit.GetComponent<Health>().health -= this.damage;

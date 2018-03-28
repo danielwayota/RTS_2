@@ -18,7 +18,8 @@ public class Health : MonoBehaviour
 	}
 
 	private int currentHealth;
-	
+
+	// ================================
 	void Awake()
 	{
 		this.currentHealth = maxHealth;	

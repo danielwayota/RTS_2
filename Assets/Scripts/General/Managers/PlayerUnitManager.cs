@@ -20,9 +20,6 @@ public class PlayerUnitManager : UnitManager {
 	// ================================
     void Start()
     {
-        // this.units = new List<Unit>();
-        // this.selectedUnits = new List<Unit>();
-
         this.groundPlane.SetNormalAndPosition(Vector3.up, Vector3.zero);
 
         this.selecting = false;
@@ -119,7 +116,7 @@ public class PlayerUnitManager : UnitManager {
             }
         }
     }
-
+    // ================================
     public override void RemoveUnit(Unit u)
     {
         this.units.Remove(u);
