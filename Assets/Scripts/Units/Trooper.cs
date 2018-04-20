@@ -86,9 +86,10 @@ public class Trooper : Unit
         }
     }
 
+    // =================================
     public void CheckSurrounding()
     {
-        // Check surroundings for enemies.
+        // Comprobar los alrededores.
         Collider[] nearUnits = Physics.OverlapSphere(
             this.transform.position,
             this.maxCombatDistance - 1,

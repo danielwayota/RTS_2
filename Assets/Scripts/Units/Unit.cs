@@ -16,10 +16,7 @@ public class Unit : MonoBehaviour
 
     public bool IsSelected
     {
-        get
-        {
-            return this.selected;
-        }
+        get { return this.selected; }
         set
         {
             // Mostrar u ocultar el icono de seleccion
