@@ -7,6 +7,5 @@ public class AIUnitManager : UnitManager
 
 	void Start()
 	{
-		Debug.Log("AI start.");
 	}
 }

@@ -1,6 +1,12 @@
 ﻿using UnityEngine;
 using UnityEngine.AI;
 
+enum Status
+{
+    IDLE,
+    MOVING
+}
+
 public class Trooper : Unit
 {
     public LayerMask unitsLayer;
@@ -11,6 +17,10 @@ public class Trooper : Unit
     private float time;
     private float timeOut = 1f;
 
+    private Vector3 targetPosition;
+
+    private Status status = Status.IDLE;
+
     private Weapon weapon;
 
     private Unit currentTarget;
@@ -19,6 +29,11 @@ public class Trooper : Unit
     {
         this.agent = GetComponent<NavMeshAgent>();
         this.weapon = GetComponent<Weapon>();
+
+        if (this.status != Status.IDLE)
+        {
+            this.agent.SetDestination(this.targetPosition);
+        }
     }
 
     // ================================
@@ -44,6 +59,15 @@ public class Trooper : Unit
                 if (distance > this.maxCombatDistance)
                 {
                     this.currentTarget = null;
+                }
+            }
+
+            if (this.status == Status.MOVING)
+            {
+                if (!this.agent.hasPath || this.agent.velocity.sqrMagnitude == 0f)
+                {
+                    // Movimiento terminado
+                    this.status = Status.IDLE;
                 }
             }
 
@@ -90,6 +114,12 @@ public class Trooper : Unit
     // ========================================
     public override void ExecuteOrder(Vector3 worldPos)
     {
-        this.agent.SetDestination(worldPos);
+        this.targetPosition = worldPos;
+        this.status = Status.MOVING;
+
+        if (this.agent != null)
+        {
+            this.agent.SetDestination(worldPos);
+        }
     }
 }

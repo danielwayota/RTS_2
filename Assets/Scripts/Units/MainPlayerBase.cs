@@ -1,0 +1,46 @@
+﻿using UnityEngine;
+
+public class MainPlayerBase : Unit
+{
+	public GameObject trooperPrfb;
+
+	[Header("Unit positions")]
+	public Transform spawnPoint;
+	public Transform targetPoint;
+
+	// =================================
+	public override void Init()
+	{
+		
+	}
+	
+	// =================================
+	void Update()
+	{
+		if (this.IsSelected)
+		{
+			if (Input.GetKeyDown("q"))
+			{
+				GameObject g = Instantiate(
+                    this.trooperPrfb,
+                    this.spawnPoint.position,
+                    Quaternion.identity
+                );
+
+                Unit u = g.GetComponent<Unit>();
+
+                u.faction = this.faction;
+                
+                u.ExecuteOrder(this.targetPoint.position);
+			}
+		}
+	}
+
+	// ========================================
+    // EXECUTE ORDER 66
+    // ========================================
+    public override void ExecuteOrder(Vector3 worldPos)
+	{
+		this.targetPoint.position = worldPos;
+	}
+}
