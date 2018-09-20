@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class PlayerUnitManager : UnitManager {
 
@@ -25,7 +26,7 @@ public class PlayerUnitManager : UnitManager {
         this.selecting = false;
     }
 
-	    void Update()
+    void Update()
     {
         if (Input.GetMouseButtonDown(0))
         {
@@ -73,31 +74,33 @@ public class PlayerUnitManager : UnitManager {
 
             if (!this.selectionBox.IsValid())
             {
-                // Limpiar selección anterior
-                for (int i = 0; i < this.selectedUnits.Count; i++)
+                if (EventSystem.current.currentSelectedGameObject == null)
                 {
-                    this.selectedUnits[i].IsSelected = false;
-                }
-                this.selectedUnits.Clear();
-
-                Ray ray = this.sceneCamera.ScreenPointToRay(Input.mousePosition);
-                RaycastHit hit;
-
-                if (Physics.Raycast(ray, out hit, 100))
-                {
-                    GameObject go = hit.collider.gameObject;
-
-                    Unit u = go.GetComponent<Unit>();
-
-                    if (u != null)
+                    // Limpiar selección anterior
+                    for (int i = 0; i < this.selectedUnits.Count; i++)
                     {
-                        if (this.units.Contains(u)) {
-                            u.IsSelected = true;
-                            this.selectedUnits.Add(u);
+                        this.selectedUnits[i].IsSelected = false;
+                    }
+                    this.selectedUnits.Clear();
+
+                    Ray ray = this.sceneCamera.ScreenPointToRay(Input.mousePosition);
+                    RaycastHit hit;
+
+                    if (Physics.Raycast(ray, out hit, 100))
+                    {
+                        GameObject go = hit.collider.gameObject;
+
+                        Unit u = go.GetComponent<Unit>();
+
+                        if (u != null)
+                        {
+                            if (this.units.Contains(u)) {
+                                u.IsSelected = true;
+                                this.selectedUnits.Add(u);
+                            }
                         }
                     }
                 }
-
             }
         }
 

@@ -13,27 +13,26 @@ public class MainPlayerBase : Unit
 	{
 		
 	}
-	
-	// =================================
-	void Update()
+
+	public void CreateTrooper()
 	{
-		if (this.IsSelected)
-		{
-			if (Input.GetKeyDown("q"))
-			{
-				GameObject g = Instantiate(
-                    this.trooperPrfb,
-                    this.spawnPoint.position,
-                    Quaternion.identity
-                );
+		GameObject g = Instantiate(
+			this.trooperPrfb,
+			this.spawnPoint.position,
+			Quaternion.identity
+		);
 
-                Unit u = g.GetComponent<Unit>();
+		Unit u = g.GetComponent<Unit>();
 
-                u.faction = this.faction;
-                
-                u.ExecuteOrder(this.targetPoint.position);
-			}
-		}
+		u.faction = this.faction;
+		
+		u.ExecuteOrder(this.targetPoint.position);
+	}
+
+	// ========================================
+	public override void OnSelectionChanged()
+	{
+		UIManager.current.ToggleMainBasePanel(this.selected);
 	}
 
 	// ========================================

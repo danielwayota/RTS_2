@@ -22,6 +22,7 @@ public class Unit : MonoBehaviour
             // Mostrar u ocultar el icono de seleccion
             this.selectionMarker.SetActive(value);
             this.selected = value;
+            this.OnSelectionChanged();
         }
     }
     // ========================================
@@ -47,6 +48,8 @@ public class Unit : MonoBehaviour
     }
     // ========================================
     public virtual void Init() { }
+
+    public virtual void OnSelectionChanged() { }
 
     // ========================================
     // EXECUTE ORDER 66
