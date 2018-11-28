@@ -32,7 +32,10 @@ public class MainPlayerBase : Unit
 	// ========================================
 	public override void OnSelectionChanged()
 	{
-		UIManager.current.ToggleMainBasePanel(this.selected);
+		if (UIManager.current)
+		{
+			UIManager.current.ToggleMainBasePanel(this.selected);
+		}
 	}
 
 	// ========================================

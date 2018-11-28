@@ -18,9 +18,9 @@ public class MainAIPlayer : Unit
 	public override void Init()
 	{
 		this.time = 0;
-		this.timeOut = 2.5f;
+		this.timeOut = .5f;
 
-		this.waveUnits = 12;
+		this.waveUnits = 128;
 		this.currentUnits = 0;
 	}
 	
