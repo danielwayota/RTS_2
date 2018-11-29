@@ -53,6 +53,7 @@ GameObject:
   - component: {fileID: 4278640640206244}
   - component: {fileID: 65951421230078662}
   - component: {fileID: 114360116995796870}
+  - component: {fileID: 114735690647344918}
   m_Layer: 0
   m_Name: MainAIBase
   m_TagString: Untagged
@@ -176,7 +177,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1368304431562370}
   m_LocalRotation: {x: -0, y: -0.91387534, z: 0, w: -0.4059949}
-  m_LocalPosition: {x: -22.7, y: 1.12, z: 23.42}
+  m_LocalPosition: {x: -42.53, y: 0.97, z: 42.35}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4237294680977972}
@@ -192,7 +193,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1279341475023976}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.02, y: -0.68, z: 6.35}
+  m_LocalPosition: {x: 0.1, y: -0.68, z: 7.52}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4278640640206244}
@@ -233,7 +234,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1628319959740778}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 3.82, y: -0.9, z: 10.72}
+  m_LocalPosition: {x: 4.8, y: -0.9, z: 56.29}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4774671163375850}
@@ -443,10 +444,25 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 71763535702fa6044aeb6fc6875dc488, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  selectionMarker: {fileID: 0}
+  selectionMarker: {fileID: 1342779718983962}
   manager: {fileID: 0}
   faction: {fileID: 0}
-  renderers: []
-  trooperPrfb: {fileID: 0}
-  spawnPoint: {fileID: 0}
-  targetPoint: {fileID: 0}
+  renderers:
+  - {fileID: 23380681642828342}
+  trooperPrfb: {fileID: 1907181805575070, guid: 2af5199d00d4e0b47bd07c7dcb2afc77,
+    type: 2}
+  spawnPoint: {fileID: 4297084573437994}
+  targetPoint: {fileID: 4955120871287488}
+--- !u!114 &114735690647344918
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1368304431562370}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 61b0757df1d701846b632b7bbfa2d814, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  productionRate: 10
+  maxBattery: 100

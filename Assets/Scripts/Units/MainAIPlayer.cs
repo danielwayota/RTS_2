@@ -35,19 +35,24 @@ public class MainAIPlayer : Unit
 
 			if (this.currentUnits < this.waveUnits)
 			{
-				GameObject newOne = Instantiate(
-					this.trooperPrfb,
-					this.spawnPoint.position,
-					Quaternion.identity
-				);
+				if (this.faction.CanRetrieveEnergy(100))
+				{
+					GameObject newOne = Instantiate(
+						this.trooperPrfb,
+						this.spawnPoint.position,
+						Quaternion.identity
+					);
 
-				Unit u = newOne.GetComponent<Unit>();
+					Unit u = newOne.GetComponent<Unit>();
 
-				u.faction = this.faction;
+					u.faction = this.faction;
 
-				u.ExecuteOrder(this.targetPoint.position);
+					u.ExecuteOrder(this.targetPoint.position);
 
-				this.currentUnits++;
+					this.currentUnits++;
+
+					this.faction.RetrieveEnergy(100);
+				}
 			}
 		}
 	}
