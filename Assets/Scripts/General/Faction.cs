@@ -6,7 +6,7 @@ public class Faction : MonoBehaviour {
 
 	public FactionPanel factionPanel;
 
-	public int maxEnergy = 100000;
+	public float maxEnergy = 100000;
 
 	public string factionName;
 	public Material materialColor;
@@ -14,7 +14,7 @@ public class Faction : MonoBehaviour {
 	[HideInInspector]
 	public UnitManager unitManager;
 
-	private int energy;
+	private float energy;
 
 	void Awake()
 	{
@@ -28,12 +28,12 @@ public class Faction : MonoBehaviour {
 		}
 	}
 
-	public bool CanRetrieveEnergy(int amount)
+	public bool CanRetrieveEnergy(float amount)
 	{
 		return this.energy >= amount;
 	}
 
-	public int RetrieveEnergy(int amount)
+	public float RetrieveEnergy(float amount)
 	{
 		if (amount < 0) { Debug.LogError("Trying to retrieve negative energy!"); return 0; }
 
@@ -55,11 +55,11 @@ public class Faction : MonoBehaviour {
 		return amount;
 	}
 
-	public int StoreEnergy(int amount)
+	public float StoreEnergy(float amount)
 	{
 		if (amount < 0) { Debug.LogError("Trying to store negative energy!"); return 0; }
 
-		int spaceForEnergy = this.maxEnergy - this.energy;
+		float spaceForEnergy = this.maxEnergy - this.energy;
 
 		if (amount > spaceForEnergy)
 		{

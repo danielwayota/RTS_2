@@ -6,8 +6,9 @@ public class FactionPanel : MonoBehaviour
 
     public Text energyStored;
 
-	public void UpdateEnergy(int energy)
+	public void UpdateEnergy(float energy)
 	{
-		this.energyStored.text = energy.ToString();
+		int intEnergy = (int)(energy);
+		this.energyStored.text = intEnergy.ToString();
 	}
 }
