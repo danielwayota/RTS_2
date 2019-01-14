@@ -66,16 +66,9 @@ public class MainPlayerBase : Unit
 	{
 		UnitMetaData meta = UnitMetaStorage.current.GetUnitMetaByName(unitName);
 
-		Job theJob = new Job();
-		theJob.unitMeta = new UnitMetaData();
-		theJob.unitMeta.requiredEnergy = meta.requiredEnergy;
-		theJob.unitMeta.prefab = meta.prefab;
-
-		theJob.targetPosition = this.targetPoint.position;
+		Job theJob = new Job(this.targetPoint.position, meta);
 
 		this.jobList.Enqueue(theJob);
-
-		Debug.Log("Job Created: " + this.jobList.Count);
 	}
 	// ========================================
 	private void OnFinishedJob(Job j)
@@ -91,7 +84,6 @@ public class MainPlayerBase : Unit
 		u.faction = this.faction;
 		
 		u.ExecuteOrder(j.targetPosition);
-		Debug.Log("Job terminated: " + this.jobList.Count);
 	}
 
 	// ========================================
@@ -117,4 +109,12 @@ public class Job
 {
 	public UnitMetaData unitMeta;
 	public Vector3 targetPosition;
+
+	public Job() {}
+
+	public Job(Vector3 pos, UnitMetaData meta)
+	{
+		this.targetPosition = pos;
+		this.unitMeta = new UnitMetaData(meta);
+	}
 }
