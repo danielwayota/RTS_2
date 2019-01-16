@@ -51,13 +51,18 @@ public class MainPlayerBase : Unit
 			if (this.faction.CanRetrieveEnergy(neededEnergy))
 			{
 				this.faction.RetrieveEnergy(neededEnergy);
-				this.currentJob.unitMeta.requiredEnergy -= neededEnergy;
+				this.currentJob.workDone += neededEnergy;
 			}
 
-			if (this.currentJob.unitMeta.requiredEnergy <= 0)
+			if (this.currentJob.isDone)
 			{
 				this.OnFinishedJob(this.currentJob);
 				this.currentJob = null;
+			}
+
+			if (this.IsSelected)
+			{
+				UIManager.current.mainBasePanel.UpdateJobInfo(this.currentJob);
 			}
 		}
 	}
@@ -92,6 +97,11 @@ public class MainPlayerBase : Unit
 		if (UIManager.current)
 		{
 			UIManager.current.ToggleMainBasePanel(this.selected);
+
+			if (this.IsSelected)
+			{
+				UIManager.current.mainBasePanel.UpdateJobInfo(this.currentJob);
+			}
 		}
 	}
 
@@ -110,11 +120,24 @@ public class Job
 	public UnitMetaData unitMeta;
 	public Vector3 targetPosition;
 
+	public float workDone;
+
+	public float percentage
+	{
+		get { return this.workDone / this.unitMeta.requiredEnergy; }
+	}
+
+	public bool isDone
+	{
+		get { return this.workDone >= this.unitMeta.requiredEnergy; }
+	}
+
 	public Job() {}
 
 	public Job(Vector3 pos, UnitMetaData meta)
 	{
 		this.targetPosition = pos;
 		this.unitMeta = new UnitMetaData(meta);
+		this.workDone = 0;
 	}
 }

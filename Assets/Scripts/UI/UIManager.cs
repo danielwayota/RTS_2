@@ -4,18 +4,18 @@ public class UIManager : MonoBehaviour
 {
 	public static UIManager current;
 
-	public GameObject mainBasePanel;
+	public MainBasePanel mainBasePanel;
 
 	// ==============================
 	void Start ()
 	{
 		current = this;
-		this.mainBasePanel.SetActive(false);
+		this.mainBasePanel.gameObject.SetActive(false);
 	}
 
 	// ==============================
 	public void ToggleMainBasePanel(bool show)
 	{
-		this.mainBasePanel.SetActive(show);
+		this.mainBasePanel.gameObject.SetActive(show);
 	}
 }
