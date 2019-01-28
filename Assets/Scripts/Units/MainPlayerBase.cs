@@ -37,6 +37,7 @@ public class MainPlayerBase : Unit
 				if (this.jobList.Count > 0)
 				{
 					currentJob = this.jobList.Dequeue();
+					UIManager.current.mainBasePanel.jobListUI.RemoveJob(currentJob);
 				}
 			}
 
@@ -74,6 +75,7 @@ public class MainPlayerBase : Unit
 		Job theJob = new Job(this.targetPoint.position, meta);
 
 		this.jobList.Enqueue(theJob);
+		UIManager.current.mainBasePanel.jobListUI.AddJob(theJob);
 	}
 	// ========================================
 	private void OnFinishedJob(Job j)

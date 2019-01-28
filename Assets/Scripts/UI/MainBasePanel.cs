@@ -4,6 +4,8 @@ public class MainBasePanel : MonoBehaviour
 {
     public JobInfoUI currentJobUI;
 
+    public JobListUI jobListUI;
+
     public void UpdateJobInfo(Job j)
     {
         if (j != null)
