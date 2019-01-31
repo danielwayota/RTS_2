@@ -8,11 +8,13 @@ public class JobListUI : MonoBehaviour
 
     private Dictionary<Job, JobUI> internalList;
 
+    // ======================================
     private void Awake()
     {
         this.internalList = new Dictionary<Job, JobUI>();
     }
 
+    // ======================================
     public void AddJob(Job j)
     {
         GameObject go = Instantiate(this.jobUIPrefab);
@@ -27,6 +29,7 @@ public class JobListUI : MonoBehaviour
         trans.sizeDelta = new Vector2(trans.sizeDelta.x, this.jobUIHeight * this.internalList.Count);
     }
 
+    // ======================================
     public void RemoveJob(Job j)
     {
         JobUI jobUI = this.internalList[j];

@@ -6,13 +6,14 @@ public class MainBasePanel : MonoBehaviour
 
     public JobListUI jobListUI;
 
+    // ======================================
     public void UpdateJobInfo(Job j)
     {
         if (j != null)
         {
             this.currentJobUI.gameObject.SetActive(true);
-            this.currentJobUI.SetJobName(j.unitMeta.name);
-            this.currentJobUI.SetJobProgress(j.percentage);
+            this.currentJobUI.SetJobName(j.name);
+            this.currentJobUI.SetJobProgress(j.progress);
         }
         else
         {

@@ -7,9 +7,10 @@ public class JobUI : MonoBehaviour
 
     private Job jobData;
 
+    // ======================================
     public void SetJob(Job j)
     {
         this.jobData = j;
-        this.jobNameLabel.text = j.unitMeta.name;
+        this.jobNameLabel.text = j.name;
     }
 }

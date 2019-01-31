@@ -16,6 +16,7 @@ public class Faction : MonoBehaviour {
 
 	private float energy;
 
+	// ======================================
 	void Awake()
 	{
 		this.unitManager = GetComponent<UnitManager>();		
@@ -28,11 +29,13 @@ public class Faction : MonoBehaviour {
 		}
 	}
 
+	// ======================================
 	public bool CanRetrieveEnergy(float amount)
 	{
 		return this.energy >= amount;
 	}
 
+	// ======================================
 	public float RetrieveEnergy(float amount)
 	{
 		if (amount < 0) { Debug.LogError("Trying to retrieve negative energy!"); return 0; }
@@ -55,6 +58,7 @@ public class Faction : MonoBehaviour {
 		return amount;
 	}
 
+	// ======================================
 	public float StoreEnergy(float amount)
 	{
 		if (amount < 0) { Debug.LogError("Trying to store negative energy!"); return 0; }

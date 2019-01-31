@@ -3,9 +3,9 @@ using UnityEngine.UI;
 
 public class FactionPanel : MonoBehaviour
 {
-
     public Text energyStored;
 
+	// ======================================
 	public void UpdateEnergy(float energy)
 	{
 		int intEnergy = (int)(energy);
