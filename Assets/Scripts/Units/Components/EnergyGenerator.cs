@@ -13,6 +13,8 @@ public class EnergyGenerator : MonoBehaviour
 
 	private float time = 0;
 
+    private bool isOn = true;
+
 	// ======================================
     void Start()
     {
@@ -20,21 +22,32 @@ public class EnergyGenerator : MonoBehaviour
 		if (this.unit == null) { Debug.LogError("This isn't a valid Unit."); }
     }
 
+    public void TurnOn()
+    {
+        this.isOn = true;
+    }
+    public void TurnOff()
+    {
+        this.isOn = false;
+    }
+
 	// ======================================
     void Update()
     {
-		this.time += Time.deltaTime;
+        if (this.isOn) {
+            this.time += Time.deltaTime;
 
-		this.battery += Time.deltaTime * this.productionRate;
-		if (this.battery > this.maxBattery)
-		{
-			this.battery = this.maxBattery;
-		}
+            this.battery += Time.deltaTime * this.productionRate;
+            if (this.battery > this.maxBattery)
+            {
+                this.battery = this.maxBattery;
+            }
 
-		if (this.time >= 1.0f)
-		{
-			this.time = 0;
-			this.battery -= this.unit.faction.StoreEnergy( Mathf.RoundToInt(this.battery) );
-		}
+            if (this.time >= 1.0f)
+            {
+                this.time = 0;
+                this.battery -= this.unit.faction.StoreEnergy( Mathf.RoundToInt(this.battery) );
+            }
+        }
     }
 }
