@@ -88,6 +88,11 @@ public class MainPlayerBase : Unit
 
 		Unit u = g.GetComponent<Unit>();
 
+		if (u == null) {
+			Debug.LogError("This object has no Unit component");
+			return;
+		}
+
 		u.faction = this.faction;
 		
 		u.ExecuteOrder(j.targetPosition);
