@@ -1,39 +1,25 @@
 ﻿using UnityEngine;
 using UnityEngine.AI;
 
-enum Status
-{
-    IDLE,
-    MOVING
-}
-
+[RequireComponent(typeof(Walk))]
 public class Trooper : Unit
 {
     public LayerMask unitsLayer;
     public float maxCombatDistance = 10;
 
-    private NavMeshAgent agent;
-
     private float time;
     private float timeOut = 1f;
 
-    private Vector3 targetPosition;
-
-    private Status status = Status.IDLE;
-
     private Weapon weapon;
+    private Walk walk;
 
     private Unit currentTarget;
-    // ================================
-    public override void Init()
-    {
-        this.agent = GetComponent<NavMeshAgent>();
-        this.weapon = GetComponent<Weapon>();
 
-        if (this.status != Status.IDLE)
-        {
-            this.agent.SetDestination(this.targetPosition);
-        }
+    // ================================
+    void Awake()
+    {
+        this.weapon = GetComponent<Weapon>();
+        this.walk = GetComponent<Walk>();
     }
 
     // ================================
@@ -46,6 +32,7 @@ public class Trooper : Unit
         {
             this.time = 0;
 
+            // Combate
             if (this.currentTarget == null)
             {
                 this.CheckSurrounding();
@@ -61,16 +48,6 @@ public class Trooper : Unit
                     this.currentTarget = null;
                 }
             }
-
-            if (this.status == Status.MOVING)
-            {
-                if (!this.agent.hasPath || this.agent.velocity.sqrMagnitude == 0f)
-                {
-                    // Movimiento terminado
-                    this.status = Status.IDLE;
-                }
-            }
-
         }
 
 
@@ -115,12 +92,6 @@ public class Trooper : Unit
     // ========================================
     public override void ExecuteOrder(Vector3 worldPos)
     {
-        this.targetPosition = worldPos;
-        this.status = Status.MOVING;
-
-        if (this.agent != null)
-        {
-            this.agent.SetDestination(worldPos);
-        }
+        this.walk.SetDestination(worldPos);
     }
 }

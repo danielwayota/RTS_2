@@ -13,28 +13,34 @@ public class EnergyGenerator : MonoBehaviour
 
 	private float time = 0;
 
-    private bool isOn = true;
+    public bool isActive {
+        get; protected set;
+    }
 
 	// ======================================
-    void Start()
+    void Awake()
     {
 		this.unit = GetComponent<Unit>();
+        this.isActive = true;
 		if (this.unit == null) { Debug.LogError("This isn't a valid Unit."); }
     }
 
+    // ======================================
     public void TurnOn()
     {
-        this.isOn = true;
+        this.isActive = true;
     }
+
+    // ======================================
     public void TurnOff()
     {
-        this.isOn = false;
+        this.isActive = false;
     }
 
 	// ======================================
     void Update()
     {
-        if (this.isOn) {
+        if (this.isActive) {
             this.time += Time.deltaTime;
 
             this.battery += Time.deltaTime * this.productionRate;

@@ -1,35 +1,22 @@
 ﻿using UnityEngine;
 using UnityEngine.AI;
 
+[RequireComponent(typeof(Walk))]
 public class SolarGenerator : Unit
 {
-    private NavMeshAgent agent;
-
     private float time;
     private float timeOut = 1f;
-
-    private Vector3 targetPosition;
-
-    private Status status = Status.IDLE;
 
     private Animator animator;
 
     private EnergyGenerator generator;
+    private Walk walk;
 
     private void Awake()
     {
-        this.agent = GetComponent<NavMeshAgent>();
         this.animator = GetComponent<Animator>();
         this.generator = GetComponent<EnergyGenerator>();   
-    }
-
-    // ================================
-    public override void Init()
-    {
-        if (this.status != Status.IDLE)
-        {
-            this.agent.SetDestination(this.targetPosition);
-        }
+        this.walk = GetComponent<Walk>();
     }
 
     // ================================
@@ -42,15 +29,10 @@ public class SolarGenerator : Unit
         {
             this.time = 0;
 
-            if (this.status == Status.MOVING)
+            if (this.walk.status == WalkStatus.IDLE && !this.generator.isActive)
             {
-                if (!this.agent.hasPath || this.agent.velocity.sqrMagnitude == 0f)
-                {
-                    // Movimiento terminado
-                    this.status = Status.IDLE;
-                    this.animator.SetBool("IsOpen", true);
-                    this.generator.TurnOn();
-                }
+                this.animator.SetBool("IsOpen", true);
+                this.generator.TurnOn();
             }
 
         }
@@ -62,13 +44,7 @@ public class SolarGenerator : Unit
     // ========================================
     public override void ExecuteOrder(Vector3 worldPos)
     {
-        this.targetPosition = worldPos;
-        this.status = Status.MOVING;
-
-        if (this.agent != null)
-        {
-            this.agent.SetDestination(worldPos);
-        }
+        this.walk.SetDestination(worldPos);
         this.animator.SetBool("IsOpen", false);
         this.generator.TurnOff();
     }

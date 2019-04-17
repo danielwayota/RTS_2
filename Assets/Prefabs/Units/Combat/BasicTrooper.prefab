@@ -227,6 +227,7 @@ GameObject:
   - component: {fileID: 136281669786395774}
   - component: {fileID: 195416906927288310}
   - component: {fileID: 114135596460739400}
+  - component: {fileID: 2714597774746164566}
   - component: {fileID: 114805736108185026}
   - component: {fileID: 114421278318137904}
   m_Layer: 8
@@ -310,6 +311,18 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 256
   maxCombatDistance: 10
+--- !u!114 &2714597774746164566
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1907181805575070}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d46a32b7a32516f458ce2c6c6c37bf8a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114805736108185026
 MonoBehaviour:
   m_ObjectHideFlags: 0
