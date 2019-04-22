@@ -50,8 +50,50 @@ public class Walk : MonoBehaviour
                     // Movimiento terminado
                     this.status = WalkStatus.IDLE;
                 }
+
+                Vector3 positionToCheck = this.targetPosition;
+
+                int i = 0;
+                while (this.IsTargetOccupied(positionToCheck) && i < 100)
+                {
+                    positionToCheck += this.GenerateNewPositionOffset();
+                    i++;
+                }
+
+                if (i >= 90) { Debug.LogError("Too many iterations: " + i); }
+
+                this.SetDestination(positionToCheck);
             }
         }
+    }
+
+    private Vector3 GenerateNewPositionOffset()
+    {
+        float angle = Random.Range(0, 2 * Mathf.PI);
+
+        float x = Mathf.Cos(angle) * this.agent.radius * 5f;
+        float z = Mathf.Sin(angle) * this.agent.radius * 5f;
+
+        return new Vector3(x, 0, z);
+    }
+
+
+    private bool IsTargetOccupied(Vector3 pos)
+    {
+        Collider[] objs = Physics.OverlapSphere(pos, this.agent.radius * 2, LayerMask.GetMask("Units"));
+        bool isOccupied = true;
+
+        if (objs.Length == 0)
+        {
+            isOccupied = false;
+        }
+
+        if (objs.Length == 1)
+        {
+            if (objs[0].gameObject == this.gameObject) { isOccupied = false; }
+        }
+
+        return isOccupied;
     }
 
     // ===========================================
