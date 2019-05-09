@@ -45,7 +45,7 @@ public class Walk : MonoBehaviour
 
             if (this.status == WalkStatus.MOVING)
             {
-                if (!this.agent.hasPath || this.agent.velocity.sqrMagnitude == 0f)
+                if (!this.agent.hasPath || this.agent.velocity.sqrMagnitude <= 0.1f)
                 {
                     // Movimiento terminado
                     this.status = WalkStatus.IDLE;

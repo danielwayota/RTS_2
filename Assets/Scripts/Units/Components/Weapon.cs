@@ -12,6 +12,9 @@ public class Weapon : MonoBehaviour {
     public Transform shootPoint;
     public GameObject projectilePrefab;
 
+	[Header("Sound")]
+	public SoundVariator shootAudio;
+
 
 	private float time;
 
@@ -45,6 +48,7 @@ public class Weapon : MonoBehaviour {
 	// =================================
 	public void Shoot()
 	{
+		this.shootAudio.Play();
 		this.isReady = false;
 
 		GameObject p = Instantiate(
