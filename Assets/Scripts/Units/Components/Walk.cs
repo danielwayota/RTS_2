@@ -45,12 +45,6 @@ public class Walk : MonoBehaviour
 
             if (this.status == WalkStatus.MOVING)
             {
-                if (!this.agent.hasPath || this.agent.velocity.sqrMagnitude <= 0.1f)
-                {
-                    // Movimiento terminado
-                    this.status = WalkStatus.IDLE;
-                }
-
                 Vector3 positionToCheck = this.targetPosition;
 
                 int i = 0;
@@ -63,6 +57,12 @@ public class Walk : MonoBehaviour
                 if (i >= 90) { Debug.LogError("Too many iterations: " + i); }
 
                 this.SetDestination(positionToCheck);
+
+                if (!this.agent.hasPath || this.agent.velocity.sqrMagnitude <= 0.1f)
+                {
+                    // Movimiento terminado
+                    this.status = WalkStatus.IDLE;
+                }
             }
         }
     }
