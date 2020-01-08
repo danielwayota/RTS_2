@@ -1,68 +1,8 @@
 fileFormatVersion: 2
-guid: 8784694318f8b2c48b25b7ec87788f86
+guid: 4bcda91a9ae4c094db287032f341b20b
 ModelImporter:
   serializedVersion: 19300
-  internalIDToNameTable:
-  - first:
-      1: 100000
-    second: Camera
-  - first:
-      1: 100002
-    second: Lamp
-  - first:
-      1: 100004
-    second: //RootNode
-  - first:
-      1: 100006
-    second: Voxel_Base
-  - first:
-      1: 100008
-    second: Voxel_Base_Detail
-  - first:
-      4: 400000
-    second: Camera
-  - first:
-      4: 400002
-    second: Lamp
-  - first:
-      4: 400004
-    second: //RootNode
-  - first:
-      4: 400006
-    second: Voxel_Base
-  - first:
-      4: 400008
-    second: Voxel_Base_Detail
-  - first:
-      20: 2000000
-    second: Camera
-  - first:
-      21: 2100000
-    second: palette.001
-  - first:
-      21: 2100002
-    second: palette
-  - first:
-      23: 2300000
-    second: Voxel_Base
-  - first:
-      23: 2300002
-    second: Voxel_Base_Detail
-  - first:
-      33: 3300000
-    second: Voxel_Base
-  - first:
-      33: 3300002
-    second: Voxel_Base_Detail
-  - first:
-      43: 4300000
-    second: Voxel_Base_Detail
-  - first:
-      43: 4300002
-    second: Voxel_Base
-  - first:
-      108: 10800000
-    second: Lamp
+  internalIDToNameTable: []
   externalObjects: {}
   materials:
     materialImportMode: 0
@@ -91,18 +31,18 @@ ModelImporter:
     extraExposedTransformPaths: []
     extraUserProperties: []
     clipAnimations: []
-    isReadable: 1
+    isReadable: 0
   meshes:
     lODScreenPercentages: []
-    globalScale: 1
+    globalScale: 100
     meshCompression: 0
     addColliders: 0
     useSRGBMaterialColor: 1
     sortHierarchyByName: 1
-    importVisibility: 0
-    importBlendShapes: 0
-    importCameras: 0
-    importLights: 0
+    importVisibility: 1
+    importBlendShapes: 1
+    importCameras: 1
+    importLights: 1
     swapUVChannels: 0
     generateSecondaryUV: 0
     useFileUnits: 1
@@ -118,7 +58,7 @@ ModelImporter:
     secondaryUVAreaDistortion: 15.000001
     secondaryUVHardAngle: 88
     secondaryUVPackMargin: 4
-    useFileScale: 0
+    useFileScale: 1
   tangentSpace:
     normalSmoothAngle: 60
     normalImportMode: 0
