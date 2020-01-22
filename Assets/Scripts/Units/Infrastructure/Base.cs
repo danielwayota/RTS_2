@@ -73,12 +73,12 @@ public class Base : Unit
 
 		this.jobList.Enqueue(theJob);
 
-		this.OnJobStarted(theJob);
+		this.OnJobCreated(theJob);
 	}
 
     // ========================================
 	protected virtual void OnUpdate() {}
-    protected virtual void OnJobStarted(Job job) {}
+    protected virtual void OnJobCreated(Job job) {}
     protected virtual void OnJobUpdate(Job job) {}
     protected virtual void OnJobRetrievedFromQueue(Job job) {}
 

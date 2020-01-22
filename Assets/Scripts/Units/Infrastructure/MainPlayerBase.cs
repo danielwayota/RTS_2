@@ -7,7 +7,7 @@
 	}
 
 	// ========================================
-	protected override void OnJobStarted(Job job)
+	protected override void OnJobCreated(Job job)
 	{
 		UIManager.current.mainBasePanel.jobListUI.AddJob(job);
 	}

@@ -17,7 +17,7 @@ public class PlayerUnitManager : UnitManager {
 
 
     private bool selecting;
-	
+
 	// ================================
     void Start()
     {
@@ -44,24 +44,27 @@ public class PlayerUnitManager : UnitManager {
 
                 // Seleccionar unidades
 
-                foreach (Unit u in this.units)
+                if (this.selectionBox.IsValid())
                 {
-                    Vector2 screenCoord = this.sceneCamera.WorldToScreenPoint(u.transform.position);
+                    foreach (Unit u in this.units)
+                    {
+                        Vector2 screenCoord = this.sceneCamera.WorldToScreenPoint(u.transform.position);
 
-                    if (this.selectionBox.selectionRect.Contains(screenCoord))
-                    {
-                        if (!u.IsSelected)
+                        if (this.selectionBox.selectionRect.Contains(screenCoord))
                         {
-                            u.IsSelected = true;
-                            this.selectedUnits.Add(u);
+                            if (!u.IsSelected)
+                            {
+                                u.IsSelected = true;
+                                this.selectedUnits.Add(u);
+                            }
                         }
-                    }
-                    else
-                    {
-                        if (u.IsSelected)
+                        else
                         {
-                            u.IsSelected = false;
-                            this.selectedUnits.Remove(u);
+                            if (u.IsSelected)
+                            {
+                                u.IsSelected = false;
+                                this.selectedUnits.Remove(u);
+                            }
                         }
                     }
                 }
