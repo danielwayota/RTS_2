@@ -1,11 +1,10 @@
 ﻿using UnityEngine;
-using UnityEngine.AI;
 
 [RequireComponent(typeof(Walk))]
 public class Trooper : Unit
 {
     public LayerMask unitsLayer;
-    public float maxCombatDistance = 10;
+    public float detectionDistance = 10;
     public float maxViewDistance = 20;
     public float halfFieldOfView = 15;
 
@@ -33,24 +32,24 @@ public class Trooper : Unit
     {
         this.time += Time.deltaTime;
 
-        // Reloj
+        // Reloj para verificar si hay enemigos cerca.
+        //  Si no hay y la unidad está detenida,
+        //  se genera una rotación aleatoria para simular "vigilancia"
         if (this.time > this.timeOut)
         {
             this.time = 0;
 
-            // Combate
             if (this.currentTarget == null)
             {
-
                 if (this.walk.status == WalkStatus.IDLE)
                 {
                     this.vigilanceRotation = Quaternion.Euler(0, Random.Range(0, 360), 0);
                 }
             }
-            this.CheckSurrounding();
+            this.currentTarget = this.GetVisibleEnemy();
         }
 
-
+        // No hay enemigos cerca, estado de vigilancia.
         if (this.currentTarget == null)
         {
             if (this.walk.status == WalkStatus.IDLE)
@@ -58,6 +57,7 @@ public class Trooper : Unit
                 this.transform.rotation = Quaternion.Lerp(this.transform.rotation, this.vigilanceRotation, Time.deltaTime);
             }
         }
+        // Enemigos en la vista, estado de combate.
         else
         {
             Vector3 target = this.currentTarget.transform.position;
@@ -70,15 +70,18 @@ public class Trooper : Unit
         }
     }
 
-    // =================================
-    public void CheckSurrounding()
+    /// =================================
+    /// <summary>
+    /// Comprueba si hay enemigos cerca.
+    /// </summary>
+    public Unit GetVisibleEnemy()
     {
-        this.currentTarget = null;
+        Unit nextTarget = null;
 
         // Comprobar los alrededores.
         Collider[] nearUnits = Physics.OverlapSphere(
             this.transform.position,
-            this.maxCombatDistance - 1,
+            this.detectionDistance,
             this.unitsLayer
         );
 
@@ -90,17 +93,18 @@ public class Trooper : Unit
 
                 if (posibleEnemy.faction != this.faction)
                 {
-                    this.currentTarget = posibleEnemy;
+                    nextTarget = posibleEnemy;
                 }
             }
         }
 
-        if (this.currentTarget != null)
+        if (nextTarget != null)
         {
-            // Hay una cerca
-            return;
+            // Hay una cerca, no hay necesidad de comprobar el arco de visión
+            return nextTarget;
         }
 
+        // Comprobar el arco de visión
         nearUnits = Physics.OverlapSphere(
             this.transform.position,
             this.maxViewDistance,
@@ -119,18 +123,21 @@ public class Trooper : Unit
 
                     float angle = Mathf.Abs(Vector3.Angle(this.transform.forward, toEnemy));
 
+                    // ¿El enemigo está dentro del arco de visión?
                     if (angle < this.halfFieldOfView)
                     {
-                        this.currentTarget = posibleEnemy;
+                        nextTarget = posibleEnemy;
                     }
                 }
             }
         }
+
+        return nextTarget;
     }
 
-    // ========================================
-    // EXECUTE ORDER 66
-    // ========================================
+    /// ========================================
+    /// EXECUTE ORDER 66
+    /// ========================================
     public override void ExecuteOrder(Vector3 worldPos)
     {
         this.walk.SetDestination(worldPos);

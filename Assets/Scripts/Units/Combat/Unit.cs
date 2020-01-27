@@ -4,15 +4,16 @@ public class Unit : MonoBehaviour
 {
     public GameObject selectionMarker;
 
-    protected bool selected;
-
-    // PROTOTYPE
     public UnitManager manager;
-
     public Faction faction;
 
+    /// <summary>
+    /// Elementos visibles de la unidad que cambiarán al
+    ///  color de la facción.
+    /// </summary>
     public Renderer[] renderers;
 
+    protected bool selected;
     public bool IsSelected
     {
         get { return this.selected; }
@@ -30,7 +31,6 @@ public class Unit : MonoBehaviour
         this.IsSelected = false;
 
         this.manager = this.faction.unitManager;
-
         this.manager.units.Add(this);
 
         foreach(Renderer r in this.renderers)
