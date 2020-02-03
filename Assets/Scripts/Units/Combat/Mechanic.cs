@@ -81,4 +81,12 @@ public class Mechanic : Unit
 
         return nearFriendUnit;
     }
+
+    /// ========================================
+    /// EXECUTE ORDER 66
+    /// ========================================
+    public override void ExecuteOrder(Vector3 worldPos)
+    {
+        this.walk.SetDestination(worldPos);
+    }
 }
