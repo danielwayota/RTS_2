@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class Weapon : MonoBehaviour {
 
@@ -27,7 +25,7 @@ public class Weapon : MonoBehaviour {
 		this.time = 0;
 		this.isReady = true;
 
-		this.unit = GetComponent<Unit>();		
+		this.unit = GetComponent<Unit>();
 	}
 
 	// =================================
