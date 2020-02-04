@@ -5,7 +5,7 @@ using UnityEngine;
 public class AIUnitManager : UnitManager
 {
 
-	void Start()
-	{
-	}
+    void Start()
+    {
+    }
 }

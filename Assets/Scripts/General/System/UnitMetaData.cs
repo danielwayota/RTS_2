@@ -7,7 +7,7 @@ public class UnitMetaData
     public GameObject prefab;
     public float requiredEnergy;
 
-    public UnitMetaData(){}
+    public UnitMetaData() { }
 
     // ======================================
     public UnitMetaData(string n, GameObject go, float re)

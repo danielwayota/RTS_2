@@ -15,7 +15,7 @@ public class SolarGenerator : Unit
     private void Awake()
     {
         this.animator = GetComponent<Animator>();
-        this.generator = GetComponent<EnergyGenerator>();   
+        this.generator = GetComponent<EnergyGenerator>();
         this.walk = GetComponent<Walk>();
     }
 

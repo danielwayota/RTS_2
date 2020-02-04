@@ -1,8 +1,9 @@
 ﻿using UnityEngine;
 
-public class Weapon : MonoBehaviour {
+public class Weapon : MonoBehaviour
+{
 
-	[Header("Weapon Stats")]
+    [Header("Weapon Stats")]
     public int damage = 5;
     public float coolDownTime = 0.5f;
 
@@ -10,25 +11,25 @@ public class Weapon : MonoBehaviour {
     public Transform shootPoint;
     public GameObject projectilePrefab;
 
-	[Header("Sound")]
-	public SoundVariator shootAudio;
+    [Header("Sound")]
+    public SoundVariator shootAudio;
 
 
-	private float time;
+    private float time;
 
-	private Unit unit;
+    private Unit unit;
 
-	public bool isReady { get; private set; }
+    public bool isReady { get; private set; }
 
-	void Start()
-	{
-		this.time = 0;
-		this.isReady = true;
+    void Start()
+    {
+        this.time = 0;
+        this.isReady = true;
 
-		this.unit = GetComponent<Unit>();
-	}
+        this.unit = GetComponent<Unit>();
+    }
 
-	// =================================
+    // =================================
     void Update()
     {
         if (!this.isReady)
@@ -43,29 +44,29 @@ public class Weapon : MonoBehaviour {
         }
     }
 
-	// =================================
-	public void Shoot()
-	{
-		this.shootAudio.Play();
-		this.isReady = false;
+    // =================================
+    public void Shoot()
+    {
+        this.shootAudio.Play();
+        this.isReady = false;
 
-		GameObject p = Instantiate(
-			this.projectilePrefab,
-			this.shootPoint.position,
-			this.shootPoint.rotation
-		);
+        GameObject p = Instantiate(
+            this.projectilePrefab,
+            this.shootPoint.position,
+            this.shootPoint.rotation
+        );
 
-		p.GetComponent<Projectile>().weapon = this;
-	}
+        p.GetComponent<Projectile>().weapon = this;
+    }
 
-	// =================================
-	public void OnProjectileCollision(Projectile projectile, Unit unit)
-	{
-		// Hacer daño a la otra unidad si es un enemigo.
-		if (unit.faction != this.unit.faction)
-		{
-			unit.GetComponent<Health>().health -= this.damage;
-			Destroy(projectile.gameObject);
-		}
-	}
+    // =================================
+    public void OnProjectileCollision(Projectile projectile, Unit unit)
+    {
+        // Hacer daño a la otra unidad si es un enemigo.
+        if (unit.faction != this.unit.faction)
+        {
+            unit.GetComponent<Health>().health -= this.damage;
+            Destroy(projectile.gameObject);
+        }
+    }
 }

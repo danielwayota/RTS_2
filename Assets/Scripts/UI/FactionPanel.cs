@@ -5,10 +5,10 @@ public class FactionPanel : MonoBehaviour
 {
     public Text energyStored;
 
-	// ======================================
-	public void UpdateEnergy(float energy)
-	{
-		int intEnergy = (int)(energy);
-		this.energyStored.text = intEnergy.ToString();
-	}
+    // ======================================
+    public void UpdateEnergy(float energy)
+    {
+        int intEnergy = (int)(energy);
+        this.energyStored.text = intEnergy.ToString();
+    }
 }

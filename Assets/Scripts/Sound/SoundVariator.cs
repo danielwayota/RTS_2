@@ -12,7 +12,7 @@ public class SoundVariator : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        this.source = GetComponent<AudioSource>();        
+        this.source = GetComponent<AudioSource>();
         this.basePitch = this.source.pitch;
     }
 
