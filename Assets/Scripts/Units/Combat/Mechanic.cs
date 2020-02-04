@@ -32,7 +32,7 @@ public class Mechanic : Unit
 
             // Check near friend units
 
-            var unitHealth = this.GetNearFriendToCure();
+            var unitHealth = this.GetNearFriendToRepair();
 
             if (unitHealth != null)
             {
@@ -47,7 +47,7 @@ public class Mechanic : Unit
     /// <summary>
     ///
     /// </summary>
-    public Health GetNearFriendToCure()
+    public Health GetNearFriendToRepair()
     {
         // Comprobar los alrededores.
         Collider[] nearUnits = Physics.OverlapSphere(
@@ -56,7 +56,7 @@ public class Mechanic : Unit
             this.unitsLayer
         );
 
-        float currentMinHealth = float.MaxValue;
+        float minHealthFound = float.MaxValue;
         Health nearFriendUnit = null;
 
         // Busca el compañero con el menor nivel de salud.
@@ -66,15 +66,17 @@ public class Mechanic : Unit
             {
                 Unit posibleFriend = nearUnits[i].GetComponent<Unit>();
 
-                if (posibleFriend.faction == this.faction)
-                {
-                    Health h = posibleFriend.GetComponent<Health>();
+                if (posibleFriend.faction != this.faction)
+                    continue;
 
-                    if (h.health < currentMinHealth) {
-                        currentMinHealth = h.health;
+                var healthComp = posibleFriend.GetComponent<Health>();
+                if (!healthComp.isDamaged)
+                    continue;
 
-                        nearFriendUnit = h;
-                    }
+                if (healthComp.health < minHealthFound) {
+                    minHealthFound = healthComp.health;
+
+                    nearFriendUnit = healthComp;
                 }
             }
         }

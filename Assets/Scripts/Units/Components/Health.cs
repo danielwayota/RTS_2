@@ -4,19 +4,28 @@ public class Health : MonoBehaviour
 {
 	public int maxHealth;
 
-	public int health {
+	public int health
+	{
 		get { return this.currentHealth; }
 		set {
+			// Damage
+			if (value < this.currentHealth)
+			{
+				this.damageIndicator = 1;
+			}
+
 			this.currentHealth = value;
-
-			this.damageIndicator = 1;
-
 			this.currentHealth = Mathf.Clamp(this.currentHealth, 0, this.maxHealth);
 
 			if (this.currentHealth == 0) {
 				Destroy(this.gameObject);
 			}
 		}
+	}
+
+	public bool isDamaged
+	{
+		get { return this.currentHealth != this.maxHealth;}
 	}
 
 	private int currentHealth;
