@@ -16,7 +16,7 @@ public class Trooper : Unit
 
     private Unit currentTarget;
 
-    private Quaternion vigilanceRotation;
+    // private Quaternion vigilanceRotation;
 
     // ================================
     void Awake()
@@ -24,7 +24,7 @@ public class Trooper : Unit
         this.weapon = GetComponent<Weapon>();
         this.walk = GetComponent<Walk>();
 
-        this.vigilanceRotation = this.transform.rotation;
+        // this.vigilanceRotation = this.transform.rotation;
     }
 
     // ================================
@@ -39,23 +39,23 @@ public class Trooper : Unit
         {
             this.time = 0;
 
-            if (this.currentTarget == null)
-            {
-                if (this.walk.status == WalkStatus.IDLE)
-                {
-                    this.vigilanceRotation = Quaternion.Euler(0, Random.Range(0, 360), 0);
-                }
-            }
+            // if (this.currentTarget == null)
+            // {
+            //     if (this.walk.status == WalkStatus.IDLE)
+            //     {
+            //         this.vigilanceRotation = Quaternion.Euler(0, Random.Range(0, 360), 0);
+            //     }
+            // }
             this.currentTarget = this.GetVisibleEnemy();
         }
 
         // No hay enemigos cerca, estado de vigilancia.
         if (this.currentTarget == null)
         {
-            if (this.walk.status == WalkStatus.IDLE)
-            {
-                this.transform.rotation = Quaternion.Lerp(this.transform.rotation, this.vigilanceRotation, Time.deltaTime);
-            }
+            // if (this.walk.status == WalkStatus.IDLE)
+            // {
+            //     this.transform.rotation = Quaternion.Lerp(this.transform.rotation, this.vigilanceRotation, Time.deltaTime);
+            // }
         }
         // Enemigos en la vista, estado de combate.
         else
