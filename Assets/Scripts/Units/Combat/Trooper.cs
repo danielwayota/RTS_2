@@ -3,6 +3,7 @@
 [RequireComponent(typeof(Walk))]
 public class Trooper : Unit
 {
+    [Header("Trooper")]
     public LayerMask unitsLayer;
     public float detectionDistance = 10;
     public float maxViewDistance = 20;

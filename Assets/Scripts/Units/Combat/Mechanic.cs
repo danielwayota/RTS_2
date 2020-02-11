@@ -2,6 +2,7 @@ using UnityEngine;
 
 public class Mechanic : Unit
 {
+    [Header("Mechanic")]
     public GameObject healingEffect;
 
     public float detectionDistance = 1f;
