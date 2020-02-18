@@ -1,9 +1,9 @@
 ﻿using UnityEngine;
-using UnityEngine.AI;
 
 [RequireComponent(typeof(Walk))]
 public class SolarGenerator : Unit
 {
+    [Header("Solar Generator")]
     private float time;
     private float timeOut = 1f;
 

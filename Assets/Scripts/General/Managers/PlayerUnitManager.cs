@@ -1,5 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
@@ -76,7 +75,8 @@ public class PlayerUnitManager : UnitManager {
             this.selectionBox.End();
             this.selecting = false;
 
-            if (!this.selectionBox.IsValid())
+            // La caja de selección es muy pequeña, se asume que ha sido un click.
+            if (this.selectionBox.IsValid() == false)
             {
                 if (EventSystem.current.currentSelectedGameObject == null)
                 {

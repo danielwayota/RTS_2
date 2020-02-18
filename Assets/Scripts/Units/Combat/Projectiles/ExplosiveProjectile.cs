@@ -31,6 +31,7 @@ public class ExplosiveProjectile : Projectile
             }
         }
 
+        // TODO: Create auto destroy component
         GameObject p = Instantiate(this.particles, this.transform.position, Quaternion.identity);
         Destroy(p, 5);
         Destroy(this.gameObject);

@@ -39,7 +39,8 @@ public class Mechanic : Unit
             {
                 unitHealth.health += this.healingPoints;
 
-                Instantiate(this.healingEffect, unitHealth.transform.position, Quaternion.identity);
+                // TODO: Create auto destroy component
+                GameObject effect = Instantiate(this.healingEffect, unitHealth.transform.position, Quaternion.identity);
             }
         }
     }
