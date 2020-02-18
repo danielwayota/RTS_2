@@ -2,9 +2,12 @@
 
 public class Unit : MonoBehaviour
 {
+    [Header("Unit")]
     public GameObject selectionMarker;
 
+    [HideInInspector]
     public UnitManager manager;
+    [HideInInspector]
     public Faction faction;
 
     /// <summary>

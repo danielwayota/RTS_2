@@ -2,6 +2,7 @@ using UnityEngine;
 
 public class Turret : Unit
 {
+    [Header("Turret")]
     public float detectionDistance;
     public LayerMask unitsLayer;
 
