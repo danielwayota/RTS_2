@@ -36,6 +36,9 @@ public class Turret : Unit
             {
                 this.currentTarget = this.GetVisibleEnemy();
 
+                if (this.currentTarget == null)
+                    return;
+
                 Vector3 target = this.currentTarget.transform.position;
 
                 // TODO: Rotar unicamente la "cabeza" de la torreta

@@ -719,7 +719,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   damage: 25
-  coolDownTime: 0.5
+  coolDownTime: 0.1
   shootPoint: {fileID: 8493189491462250824}
   projectilePrefab: {fileID: 1468398202035742, guid: bc28a8709002cd24589ca2ff429d35dd,
     type: 3}
@@ -768,7 +768,7 @@ MonoBehaviour:
   renderers:
   - {fileID: 8473990292859418630}
   - {fileID: 1456041829042076126}
-  detectionDistance: 8
+  detectionDistance: 12
   unitsLayer:
     serializedVersion: 2
     m_Bits: 256
