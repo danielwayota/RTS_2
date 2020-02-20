@@ -13,15 +13,14 @@ public class Turret : Unit
     private bool isActive;
 
     private float time;
-    private float timeOut = 1f;
+    private float timeOut = .5f;
 
     private Unit currentTarget;
 
     // ================================
     void Awake()
     {
-        // TODO: Mover el arma en sí a un hijo de la unidad
-        this.weapon = GetComponent<Weapon>();
+        this.weapon = GetComponentInChildren<Weapon>();
         this.walk = GetComponent<Walk>();
 
         this.animator = GetComponent<Animator>();
@@ -50,19 +49,22 @@ public class Turret : Unit
 
                 this.currentTarget = this.GetVisibleEnemy();
 
-                if (this.currentTarget == null)
-                    return;
-
-                Vector3 target = this.currentTarget.transform.position;
-
-                // TODO: Rotar unicamente la "cabeza" de la torreta
-                this.transform.LookAt(target);
-
-                if (this.weapon.isReady)
-                {
-                    this.weapon.Shoot();
-                }
             }
+        }
+
+        if (!this.isActive)
+            return;
+
+        if (this.currentTarget == null)
+            return;
+
+        Vector3 target = this.currentTarget.transform.position;
+
+        this.weapon.transform.LookAt(target);
+
+        if (this.weapon.isReady)
+        {
+            this.weapon.Shoot();
         }
     }
 

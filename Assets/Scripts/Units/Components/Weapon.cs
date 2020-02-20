@@ -2,7 +2,6 @@
 
 public class Weapon : MonoBehaviour
 {
-
     [Header("Weapon Stats")]
     public int damage = 5;
     public float coolDownTime = 0.5f;
@@ -26,7 +25,7 @@ public class Weapon : MonoBehaviour
         this.time = 0;
         this.isReady = true;
 
-        this.unit = GetComponent<Unit>();
+        this.unit = GetComponentInParent<Unit>();
     }
 
     // =================================
