@@ -7,13 +7,9 @@ public class Projectile : MonoBehaviour
 
     public Weapon weapon;
 
-    public float duration = 10;
-
     // ================================
     void Start()
     {
-        Destroy(this.gameObject, this.duration);
-
         GetComponent<Rigidbody>().velocity = this.transform.forward * this.speed;
     }
 
