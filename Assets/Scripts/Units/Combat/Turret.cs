@@ -9,6 +9,9 @@ public class Turret : Unit
     private Weapon weapon;
     private Walk walk;
 
+    private Animator animator;
+    private bool isActive;
+
     private float time;
     private float timeOut = 1f;
 
@@ -20,6 +23,11 @@ public class Turret : Unit
         // TODO: Mover el arma en sí a un hijo de la unidad
         this.weapon = GetComponent<Weapon>();
         this.walk = GetComponent<Walk>();
+
+        this.animator = GetComponent<Animator>();
+
+        this.animator.SetBool("Locked", false);
+        this.isActive = false;
     }
 
     // ================================
@@ -34,6 +42,12 @@ public class Turret : Unit
             // La torreta está estática, toca buscar enemigos
             if (this.walk.status == WalkStatus.IDLE)
             {
+                if (this.isActive == false)
+                {
+                    this.isActive = true;
+                    this.animator.SetBool("Locked", true);
+                }
+
                 this.currentTarget = this.GetVisibleEnemy();
 
                 if (this.currentTarget == null)
@@ -89,5 +103,7 @@ public class Turret : Unit
     public override void ExecuteOrder(Vector3 worldPos)
     {
         this.walk.SetDestination(worldPos);
+        this.animator.SetBool("Locked", false);
+        this.isActive = false;
     }
 }
