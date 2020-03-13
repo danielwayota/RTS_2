@@ -20,10 +20,10 @@ public class Turret : Unit
     // ================================
     void Awake()
     {
-        this.weapon = GetComponentInChildren<Weapon>();
-        this.walk = GetComponent<Walk>();
+        this.weapon = this.RequireComponent<Weapon>();
+        this.walk = this.RequireComponent<Walk>();
 
-        this.animator = GetComponent<Animator>();
+        this.animator = this.RequireComponent<Animator>();
 
         this.animator.SetBool("Locked", false);
         this.isActive = false;

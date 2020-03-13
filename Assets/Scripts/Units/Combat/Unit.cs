@@ -28,6 +28,7 @@ public class Unit : MonoBehaviour
             this.OnSelectionChanged();
         }
     }
+
     // ========================================
     void Start()
     {
@@ -43,6 +44,25 @@ public class Unit : MonoBehaviour
 
         this.Init();
     }
+
+    // ========================================
+    protected T RequireComponent<T>()
+    {
+        var component = this.GetComponent<T>();
+
+        if (component == null)
+        {
+            component = this.GetComponentInChildren<T>();
+        }
+
+        if (component == null)
+        {
+            throw new System.Exception($"Component in {this.gameObject.name} not found");
+        }
+
+        return component;
+    }
+
     // ========================================
     void OnDestroy()
     {

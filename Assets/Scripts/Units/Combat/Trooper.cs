@@ -22,8 +22,8 @@ public class Trooper : Unit
     // ================================
     void Awake()
     {
-        this.weapon = GetComponent<Weapon>();
-        this.walk = GetComponent<Walk>();
+        this.weapon = this.RequireComponent<Weapon>();
+        this.walk = this.RequireComponent<Walk>();
 
         // this.vigilanceRotation = this.transform.rotation;
     }

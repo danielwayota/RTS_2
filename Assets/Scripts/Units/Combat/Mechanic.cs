@@ -18,7 +18,7 @@ public class Mechanic : Unit
     // ================================
     void Awake()
     {
-        this.walk = GetComponent<Walk>();
+        this.walk = this.RequireComponent<Walk>();
     }
 
     // ================================
