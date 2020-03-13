@@ -15,6 +15,8 @@ public class Trooper : Unit
     private Weapon weapon;
     private Walk walk;
 
+    private Sensor sensor;
+
     private Unit currentTarget;
 
     // private Quaternion vigilanceRotation;
@@ -24,6 +26,9 @@ public class Trooper : Unit
     {
         this.weapon = this.RequireComponent<Weapon>();
         this.walk = this.RequireComponent<Walk>();
+
+        this.sensor = this.RequireComponent<Sensor>();
+        this.sensor.caller = this;
 
         // this.vigilanceRotation = this.transform.rotation;
     }
@@ -79,58 +84,14 @@ public class Trooper : Unit
     {
         Unit nextTarget = null;
 
-        // Comprobar los alrededores.
-        Collider[] nearUnits = Physics.OverlapSphere(
-            this.transform.position,
-            this.detectionDistance,
-            this.unitsLayer
-        );
+        var posibleTargets = this.sensor.GetSensedUnits();
 
-        for (int i = 0; i < nearUnits.Length; i++)
+        foreach (var target in posibleTargets)
         {
-            if (nearUnits[i].gameObject != this.gameObject)
-            {
-                Unit posibleEnemy = nearUnits[i].GetComponent<Unit>();
+            if (target.faction == this.faction)
+                continue;
 
-                if (posibleEnemy.faction != this.faction)
-                {
-                    nextTarget = posibleEnemy;
-                }
-            }
-        }
-
-        if (nextTarget != null)
-        {
-            // Hay una cerca, no hay necesidad de comprobar el arco de visión
-            return nextTarget;
-        }
-
-        // Comprobar el arco de visión
-        nearUnits = Physics.OverlapSphere(
-            this.transform.position,
-            this.maxViewDistance,
-            this.unitsLayer
-        );
-
-        for (int i = 0; i < nearUnits.Length; i++)
-        {
-            if (nearUnits[i].gameObject != this.gameObject)
-            {
-                Unit posibleEnemy = nearUnits[i].GetComponent<Unit>();
-
-                if (posibleEnemy.faction != this.faction)
-                {
-                    Vector3 toEnemy = (posibleEnemy.transform.position - this.transform.position).normalized;
-
-                    float angle = Mathf.Abs(Vector3.Angle(this.transform.forward, toEnemy));
-
-                    // ¿El enemigo está dentro del arco de visión?
-                    if (angle < this.halfFieldOfView)
-                    {
-                        nextTarget = posibleEnemy;
-                    }
-                }
-            }
+            nextTarget = target;
         }
 
         return nextTarget;

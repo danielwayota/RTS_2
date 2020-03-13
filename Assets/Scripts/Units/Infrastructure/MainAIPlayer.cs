@@ -1,7 +1,7 @@
 ﻿public class MainAIPlayer : Base
 {
-    private int waveUnits = 128;
-    private int currentUnits = 0;
+    public int waveUnits = 128;
+    public int currentUnits = 0;
 
     // =================================
     protected override void OnUpdate()
