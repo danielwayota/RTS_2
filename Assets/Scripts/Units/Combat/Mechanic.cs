@@ -15,10 +15,15 @@ public class Mechanic : Unit
 
     private Walk walk;
 
+    private Sensor sensor;
+
     // ================================
     void Awake()
     {
         this.walk = this.RequireComponent<Walk>();
+
+        this.sensor = this.RequireComponent<Sensor>();
+        this.sensor.caller = this;
     }
 
     // ================================
@@ -52,35 +57,24 @@ public class Mechanic : Unit
     /// </summary>
     public Health GetNearFriendToRepair()
     {
-        // Comprobar los alrededores.
-        Collider[] nearUnits = Physics.OverlapSphere(
-            this.transform.position,
-            this.detectionDistance,
-            this.unitsLayer
-        );
-
         float minHealthFound = float.MaxValue;
         Health nearFriendUnit = null;
 
-        // Busca el compañero con el menor nivel de salud.
-        for (int i = 0; i < nearUnits.Length; i++)
+        var posibleFriends = this.sensor.GetSensedUnits();
+
+        foreach (var posibleFriend in posibleFriends)
         {
-            if (nearUnits[i].gameObject != this.gameObject)
-            {
-                Unit posibleFriend = nearUnits[i].GetComponent<Unit>();
+            if (posibleFriend.faction != this.faction)
+                continue;
 
-                if (posibleFriend.faction != this.faction)
-                    continue;
+            var healthComp = posibleFriend.GetComponent<Health>();
+            if (!healthComp.isDamaged)
+                continue;
 
-                var healthComp = posibleFriend.GetComponent<Health>();
-                if (!healthComp.isDamaged)
-                    continue;
+            if (healthComp.health < minHealthFound) {
+                minHealthFound = healthComp.health;
 
-                if (healthComp.health < minHealthFound) {
-                    minHealthFound = healthComp.health;
-
-                    nearFriendUnit = healthComp;
-                }
+                nearFriendUnit = healthComp;
             }
         }
 

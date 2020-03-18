@@ -15,6 +15,8 @@ public class Turret : Unit
     private float time;
     private float timeOut = .5f;
 
+    private Sensor sensor;
+
     private Unit currentTarget;
 
     // ================================
@@ -27,6 +29,9 @@ public class Turret : Unit
 
         this.animator.SetBool("Locked", false);
         this.isActive = false;
+
+        this.sensor = this.RequireComponent<Sensor>();
+        this.sensor.caller = this;
     }
 
     // ================================
@@ -76,24 +81,14 @@ public class Turret : Unit
     {
         Unit nextTarget = null;
 
-        // Comprobar los alrededores.
-        Collider[] nearUnits = Physics.OverlapSphere(
-            this.transform.position,
-            this.detectionDistance,
-            this.unitsLayer
-        );
+        var posibleTargets = this.sensor.GetSensedUnits();
 
-        for (int i = 0; i < nearUnits.Length; i++)
+        foreach (var target in posibleTargets)
         {
-            if (nearUnits[i].gameObject != this.gameObject)
-            {
-                Unit posibleEnemy = nearUnits[i].GetComponent<Unit>();
+            if (target.faction == this.faction)
+                continue;
 
-                if (posibleEnemy.faction != this.faction)
-                {
-                    nextTarget = posibleEnemy;
-                }
-            }
+            nextTarget = target;
         }
 
         return nextTarget;
