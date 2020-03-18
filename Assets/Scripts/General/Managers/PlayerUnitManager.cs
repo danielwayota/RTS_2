@@ -1,40 +1,74 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class PlayerUnitManager : UnitManager {
+/// <summary>
+/// Player unit manager status
+/// </summary>
+public enum PUMStatus
+{
+    IDLE, SELECT, COMMAND
+}
 
-	public List<Unit> selectedUnits;
+public class PlayerUnitManager : UnitManager
+{
+    public List<Unit> selectedUnits;
 
-	[Header("Player Stuff")]
-	// PROTOTYPE
+    [Header("Player Stuff")]
+    // PROTOTYPE
     public Camera sceneCamera;
     public SelectionBox selectionBox;
 
     private Plane groundPlane;
     // END PROTOTYPE
 
+    private PUMStatus status;
 
-    private bool selecting;
+    private Vector3 commandPosition;
+    private Vector3 commandDirection;
 
-	// ================================
+    private CommandMarker marker;
+
+    // ================================
     void Start()
     {
         this.groundPlane.SetNormalAndPosition(Vector3.up, Vector3.zero);
 
-        this.selecting = false;
+        this.status = PUMStatus.IDLE;
+
+        this.marker = this.GetComponentInChildren<CommandMarker>(true);
     }
 
     // ======================================
     void Update()
     {
+        this.UnitSelectionRutine();
+
+        this.UnitCommandRutine();
+    }
+
+    /// ================================
+    public void UnitSelectionRutine()
+    {
+        switch (this.status)
+        {
+            case PUMStatus.IDLE:
+            case PUMStatus.SELECT:
+                break;
+
+            default:
+                // No podemos seleccionar porque estamos haciendo otra cosa
+                return;
+        }
+
         if (Input.GetMouseButtonDown(0))
         {
-            this.selecting = true;
+            this.status = PUMStatus.SELECT;
             this.selectionBox.Begin(Input.mousePosition);
         }
 
-        if (this.selecting)
+        if (this.status == PUMStatus.SELECT)
         {
             if (Input.GetAxis("Mouse X") != 0 || Input.GetAxis("Mouse Y") != 0)
             {
@@ -73,7 +107,7 @@ public class PlayerUnitManager : UnitManager {
         if (Input.GetMouseButtonUp(0))
         {
             this.selectionBox.End();
-            this.selecting = false;
+            this.status = PUMStatus.IDLE;
 
             // La caja de selección es muy pequeña, se asume que ha sido un click.
             if (this.selectionBox.IsValid() == false)
@@ -98,7 +132,8 @@ public class PlayerUnitManager : UnitManager {
 
                         if (u != null)
                         {
-                            if (this.units.Contains(u)) {
+                            if (this.units.Contains(u))
+                            {
                                 u.IsSelected = true;
                                 this.selectedUnits.Add(u);
                             }
@@ -107,22 +142,72 @@ public class PlayerUnitManager : UnitManager {
                 }
             }
         }
+    }
 
-        if (Input.GetMouseButtonDown(1))
+    /// ============================================
+    /// <summary>
+    ///
+    /// </summary>
+    public void UnitCommandRutine()
+    {
+        switch (this.status)
         {
-            // Calcular posicion de destino
+            case PUMStatus.IDLE:
+            case PUMStatus.COMMAND:
+                break;
+
+            default:
+                // No podemos comandar porque estamos haciendo otra cosa
+                return;
+        }
+
+        if (this.selectedUnits.Count == 0)
+            return;
+
+        Func<Vector3> getMapPoint = () =>
+        {
             Ray ray = sceneCamera.ScreenPointToRay(Input.mousePosition);
             float distance;
 
             groundPlane.Raycast(ray, out distance);
-            Vector3 point = ray.GetPoint(distance);
+
+            return ray.GetPoint(distance);
+        };
+
+        // Empezamos a comandar
+        if (Input.GetMouseButtonDown(1))
+        {
+            this.commandPosition = getMapPoint();
+            this.status = PUMStatus.COMMAND;
+
+            this.marker.Place(this.commandPosition);
+        }
+
+        if (this.status == PUMStatus.COMMAND)
+        {
+            if (Input.GetAxis("Mouse X") != 0 || Input.GetAxis("Mouse Y") != 0)
+            {
+                Vector3 point = getMapPoint();
+                this.commandDirection = (point - this.commandPosition).normalized;
+
+                this.marker.RotateTo(this.commandDirection);
+            }
+        }
+
+        // Terminamos de comandar
+        if (Input.GetMouseButtonUp(1))
+        {
+            this.status = PUMStatus.IDLE;
 
             foreach (Unit u in this.selectedUnits)
             {
-                u.ExecuteOrder(point);
+                u.ExecuteOrder(this.commandPosition);
             }
+
+            this.marker.End();
         }
     }
+
     // ================================
     public override void RemoveUnit(Unit u)
     {
