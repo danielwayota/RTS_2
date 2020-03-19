@@ -46,7 +46,7 @@ MonoBehaviour:
   unitsLayer:
     serializedVersion: 2
     m_Bits: 256
-  detectionDistance: 24
+  detectionDistance: 32
   useConeOfVision: 0
   maxViewDistance: 20
   halfFieldOfView: 15
@@ -853,10 +853,6 @@ MonoBehaviour:
   renderers:
   - {fileID: 8473990292859418630}
   - {fileID: 1456041829042076126}
-  detectionDistance: 20
-  unitsLayer:
-    serializedVersion: 2
-    m_Bits: 256
 --- !u!95 &4463798838812368416
 Animator:
   serializedVersion: 3

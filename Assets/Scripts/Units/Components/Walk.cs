@@ -10,27 +10,33 @@ public enum WalkStatus
 [RequireComponent(typeof(NavMeshAgent))]
 public class Walk : MonoBehaviour
 {
-    private NavMeshAgent agent;
-
     private float time;
     private float timeOut = 1f;
 
     private Vector3 targetPosition;
 
-    public WalkStatus status { get; protected set; }
-
-    // ===========================================
-    void Awake()
+    private NavMeshAgent _agent;
+    private NavMeshAgent agent
     {
-        this.agent = GetComponent<NavMeshAgent>();
+        get
+        {
+            if (this._agent == null)
+            {
+                this._agent = GetComponent<NavMeshAgent>();
+            }
+            return this._agent;
+        }
+
     }
 
-    // ===========================================
-    void Start()
+    public WalkStatus status
     {
-        if (this.status != WalkStatus.IDLE)
+        get
         {
-            this.agent.SetDestination(this.targetPosition);
+            if (this.agent.velocity.sqrMagnitude <= 0.1f)
+                return WalkStatus.IDLE;
+
+            return WalkStatus.MOVING;
         }
     }
 
@@ -57,12 +63,6 @@ public class Walk : MonoBehaviour
                 if (i >= 90) { Debug.LogError("Too many iterations: " + i); }
 
                 this.SetDestination(positionToCheck);
-
-                if (!this.agent.hasPath || this.agent.velocity.sqrMagnitude <= 0.1f)
-                {
-                    // Movimiento terminado
-                    this.status = WalkStatus.IDLE;
-                }
             }
         }
     }
@@ -100,11 +100,6 @@ public class Walk : MonoBehaviour
     public void SetDestination(Vector3 worldPos)
     {
         this.targetPosition = worldPos;
-        this.status = WalkStatus.MOVING;
-
-        if (this.agent != null)
-        {
-            this.agent.SetDestination(worldPos);
-        }
+        this.agent.SetDestination(this.targetPosition);
     }
 }

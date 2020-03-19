@@ -76,5 +76,5 @@ public class Unit : MonoBehaviour
     // ========================================
     // EXECUTE ORDER 66
     // ========================================
-    public virtual void ExecuteOrder(Vector3 worldPos) { }
+    public virtual void ExecuteOrder(Vector3 worldPos, Quaternion rotation) { }
 }

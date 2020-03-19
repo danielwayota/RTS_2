@@ -1,13 +1,9 @@
 using UnityEngine;
 
-public class Turret : Unit
+public class Turret : MobileUnit
 {
     [Header("Turret")]
-    public float detectionDistance;
-    public LayerMask unitsLayer;
-
     private Weapon weapon;
-    private Walk walk;
 
     private Animator animator;
     private bool isActive;
@@ -19,11 +15,10 @@ public class Turret : Unit
 
     private Unit currentTarget;
 
-    // ================================
+    /// ====================================
     void Awake()
     {
         this.weapon = this.RequireComponent<Weapon>();
-        this.walk = this.RequireComponent<Walk>();
 
         this.animator = this.RequireComponent<Animator>();
 
@@ -34,31 +29,21 @@ public class Turret : Unit
         this.sensor.caller = this;
     }
 
-    // ================================
-    void Update()
+    /// ====================================
+    protected override void Update()
     {
-        this.time += Time.deltaTime;
+        base.Update();
 
+        if (!this.isActive)
+            return;
+
+        this.time += Time.deltaTime;
         if (this.time >= this.timeOut)
         {
             this.time = 0;
 
-            // La torreta está estática, toca buscar enemigos
-            if (this.walk.status == WalkStatus.IDLE)
-            {
-                if (this.isActive == false)
-                {
-                    this.isActive = true;
-                    this.animator.SetBool("Locked", true);
-                }
-
-                this.currentTarget = this.GetVisibleEnemy();
-
-            }
+            this.currentTarget = this.GetVisibleEnemy();
         }
-
-        if (!this.isActive)
-            return;
 
         if (this.currentTarget == null)
             return;
@@ -73,7 +58,7 @@ public class Turret : Unit
         }
     }
 
-    /// =================================
+    /// ====================================
     /// <summary>
     /// Comprueba si hay enemigos cerca.
     /// </summary>
@@ -94,13 +79,23 @@ public class Turret : Unit
         return nextTarget;
     }
 
-    /// ========================================
-    /// EXECUTE ORDER 66
-    /// ========================================
-    public override void ExecuteOrder(Vector3 worldPos)
+    /// ====================================
+    /// <summary>
+    ///
+    /// </summary>
+    /// <param name="status"></param>
+    protected override void OnWalkStatusUpdated(WalkStatus status)
     {
-        this.walk.SetDestination(worldPos);
-        this.animator.SetBool("Locked", false);
-        this.isActive = false;
+        switch (status)
+        {
+            case WalkStatus.IDLE:
+                this.animator.SetBool("Locked", true);
+                this.isActive = true;
+                break;
+            case WalkStatus.MOVING:
+                this.animator.SetBool("Locked", false);
+                this.isActive = false;
+                break;
+        }
     }
 }

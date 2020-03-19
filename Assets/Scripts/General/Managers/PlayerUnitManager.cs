@@ -28,7 +28,7 @@ public class PlayerUnitManager : UnitManager
     private PUMStatus status;
 
     private Vector3 commandPosition;
-    private Vector3 commandDirection;
+    private Quaternion commandRotation;
 
     private CommandMarker marker;
 
@@ -190,9 +190,9 @@ public class PlayerUnitManager : UnitManager
             if (Input.GetAxis("Mouse X") != 0 || Input.GetAxis("Mouse Y") != 0)
             {
                 Vector3 point = getMapPoint();
-                this.commandDirection = (point - this.commandPosition).normalized;
 
-                this.marker.RotateTo(this.commandDirection);
+                this.marker.RotateTo((point - this.commandPosition).normalized);
+                this.commandRotation = this.marker.transform.rotation;
             }
         }
 
@@ -203,7 +203,7 @@ public class PlayerUnitManager : UnitManager
 
             foreach (Unit u in this.selectedUnits)
             {
-                u.ExecuteOrder(this.commandPosition);
+                u.ExecuteOrder(this.commandPosition, this.commandRotation);
             }
 
             this.marker.End();

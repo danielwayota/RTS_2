@@ -1971,7 +1971,7 @@ PrefabInstance:
     - target: {fileID: 114360116995796870, guid: cbbf6a1d5c38e414ebeb5db835cdc2f1,
         type: 3}
       propertyPath: waveUnits
-      value: 1
+      value: 16
       objectReference: {fileID: 0}
     - target: {fileID: 114360116995796870, guid: cbbf6a1d5c38e414ebeb5db835cdc2f1,
         type: 3}

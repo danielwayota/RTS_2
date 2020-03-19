@@ -313,12 +313,7 @@ MonoBehaviour:
   faction: {fileID: 0}
   renderers:
   - {fileID: 23724200651296504}
-  unitsLayer:
-    serializedVersion: 2
-    m_Bits: 256
-  detectionDistance: 10
-  maxViewDistance: 20
-  halfFieldOfView: 15
+  shouldRotateOnStop: 1
 --- !u!114 &2714597774746164566
 MonoBehaviour:
   m_ObjectHideFlags: 0

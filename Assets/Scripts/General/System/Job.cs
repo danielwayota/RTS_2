@@ -5,6 +5,7 @@ public class Job
 {
     public UnitMetaData unitMeta;
     public Vector3 targetPosition;
+    public Quaternion targetRotation;
 
     public float workDone;
 
@@ -29,9 +30,10 @@ public class Job
     // ======================================
     public Job() { }
 
-    public Job(Vector3 pos, UnitMetaData meta)
+    public Job(Vector3 pos, Quaternion rotation, UnitMetaData meta)
     {
         this.targetPosition = pos;
+        this.targetRotation = rotation;
         this.unitMeta = new UnitMetaData(meta);
         this.workDone = 0;
     }

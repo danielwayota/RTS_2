@@ -69,7 +69,7 @@ public class Base : Unit
     {
         UnitMetaData meta = UnitMetaStorage.current.GetUnitMetaByName(unitName);
 
-        Job theJob = new Job(this.targetPoint.position, meta);
+        Job theJob = new Job(this.targetPoint.position, this.targetPoint.rotation, meta);
 
         this.jobList.Enqueue(theJob);
 
@@ -101,14 +101,15 @@ public class Base : Unit
 
         u.faction = this.faction;
 
-        u.ExecuteOrder(j.targetPosition);
+        u.ExecuteOrder(j.targetPosition, j.targetRotation);
     }
 
     // ========================================
     // EXECUTE ORDER 66
     // ========================================
-    public override void ExecuteOrder(Vector3 worldPos)
+    public override void ExecuteOrder(Vector3 worldPos, Quaternion rotation)
     {
         this.targetPoint.position = worldPos;
+        this.targetPoint.rotation = rotation;
     }
 }
