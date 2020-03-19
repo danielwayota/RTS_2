@@ -14,6 +14,8 @@ public enum PUMStatus
 public class PlayerUnitManager : UnitManager
 {
     public List<Unit> selectedUnits;
+    public GameObject commandMarkerPrfb;
+
 
     [Header("Player Stuff")]
     // PROTOTYPE
@@ -36,8 +38,6 @@ public class PlayerUnitManager : UnitManager
         this.groundPlane.SetNormalAndPosition(Vector3.up, Vector3.zero);
 
         this.status = PUMStatus.IDLE;
-
-        this.marker = this.GetComponentInChildren<CommandMarker>(true);
     }
 
     // ======================================
@@ -180,7 +180,9 @@ public class PlayerUnitManager : UnitManager
             this.commandPosition = getMapPoint();
             this.status = PUMStatus.COMMAND;
 
-            this.marker.Place(this.commandPosition);
+            var go = Instantiate(this.commandMarkerPrfb, this.commandPosition, Quaternion.identity);
+
+            this.marker = go.GetComponent<CommandMarker>();
         }
 
         if (this.status == PUMStatus.COMMAND)
