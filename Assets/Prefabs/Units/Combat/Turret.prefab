@@ -51,7 +51,7 @@ MonoBehaviour:
   maxViewDistance: 20
   halfFieldOfView: 15
   caller: {fileID: 0}
-  colliderBufferSize: 5
+  colliderBufferSize: 32
 --- !u!1 &356780635542198356
 GameObject:
   m_ObjectHideFlags: 0

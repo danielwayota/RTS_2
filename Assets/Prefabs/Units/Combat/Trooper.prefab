@@ -235,7 +235,7 @@ GameObject:
   - component: {fileID: 114805736108185026}
   - component: {fileID: 114421278318137904}
   m_Layer: 8
-  m_Name: BasicTrooper
+  m_Name: Trooper
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -444,7 +444,7 @@ MonoBehaviour:
   maxViewDistance: 30
   halfFieldOfView: 45
   caller: {fileID: 0}
-  colliderBufferSize: 4
+  colliderBufferSize: 32
 --- !u!1 &8160076500488679082
 GameObject:
   m_ObjectHideFlags: 0
