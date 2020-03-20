@@ -13,8 +13,9 @@ public class Mechanic : MobileUnit
     private Sensor sensor;
 
     /// =============================================
-    void Awake()
+    public override void Init()
     {
+        base.Init();
         this.sensor = this.RequireComponent<Sensor>();
         this.sensor.caller = this;
     }

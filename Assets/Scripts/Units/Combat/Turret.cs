@@ -16,8 +16,9 @@ public class Turret : MobileUnit
     private Unit currentTarget;
 
     /// ====================================
-    void Awake()
+    public override void Init()
     {
+        base.Init();
         this.weapon = this.RequireComponent<Weapon>();
 
         this.animator = this.RequireComponent<Animator>();

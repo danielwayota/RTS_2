@@ -51,15 +51,9 @@ public class PlayerUnitManager : UnitManager
     /// ================================
     public void UnitSelectionRutine()
     {
-        switch (this.status)
+        if (this.status != PUMStatus.IDLE && this.status != PUMStatus.SELECT)
         {
-            case PUMStatus.IDLE:
-            case PUMStatus.SELECT:
-                break;
-
-            default:
-                // No podemos seleccionar porque estamos haciendo otra cosa
-                return;
+            return;
         }
 
         if (Input.GetMouseButtonDown(0))
@@ -150,21 +144,15 @@ public class PlayerUnitManager : UnitManager
     /// </summary>
     public void UnitCommandRutine()
     {
-        switch (this.status)
+        if (this.status != PUMStatus.IDLE && this.status != PUMStatus.COMMAND)
         {
-            case PUMStatus.IDLE:
-            case PUMStatus.COMMAND:
-                break;
-
-            default:
-                // No podemos comandar porque estamos haciendo otra cosa
-                return;
+            return;
         }
 
         if (this.selectedUnits.Count == 0)
             return;
 
-        Func<Vector3> getMapPoint = () =>
+        Func<Vector3> s = () =>
         {
             Ray ray = sceneCamera.ScreenPointToRay(Input.mousePosition);
             float distance;
@@ -177,8 +165,13 @@ public class PlayerUnitManager : UnitManager
         // Empezamos a comandar
         if (Input.GetMouseButtonDown(1))
         {
-            this.commandPosition = getMapPoint();
             this.status = PUMStatus.COMMAND;
+
+            Ray ray = sceneCamera.ScreenPointToRay(Input.mousePosition);
+            float distance;
+            groundPlane.Raycast(ray, out distance);
+
+            this.commandPosition = ray.GetPoint(distance);
 
             var go = Instantiate(this.commandMarkerPrfb, this.commandPosition, Quaternion.identity);
 
@@ -189,7 +182,11 @@ public class PlayerUnitManager : UnitManager
         {
             if (Input.GetAxis("Mouse X") != 0 || Input.GetAxis("Mouse Y") != 0)
             {
-                Vector3 point = getMapPoint();
+                Ray ray = sceneCamera.ScreenPointToRay(Input.mousePosition);
+                float distance;
+                groundPlane.Raycast(ray, out distance);
+
+                Vector3 point = ray.GetPoint(distance);
 
                 this.marker.RotateTo((point - this.commandPosition).normalized);
                 this.commandRotation = this.marker.transform.rotation;
