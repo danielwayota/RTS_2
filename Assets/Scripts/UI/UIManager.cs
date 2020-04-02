@@ -10,12 +10,12 @@ public class UIManager : MonoBehaviour
     void Start()
     {
         current = this;
-        this.mainBasePanel.gameObject.SetActive(false);
+        this.mainBasePanel.SetActive(false);
     }
 
     // ==============================
     public void ToggleMainBasePanel(bool show)
     {
-        this.mainBasePanel.gameObject.SetActive(show);
+        this.mainBasePanel.SetActive(show);
     }
 }

@@ -152,16 +152,6 @@ public class PlayerUnitManager : UnitManager
         if (this.selectedUnits.Count == 0)
             return;
 
-        Func<Vector3> s = () =>
-        {
-            Ray ray = sceneCamera.ScreenPointToRay(Input.mousePosition);
-            float distance;
-
-            groundPlane.Raycast(ray, out distance);
-
-            return ray.GetPoint(distance);
-        };
-
         // Empezamos a comandar
         if (Input.GetMouseButtonDown(1))
         {

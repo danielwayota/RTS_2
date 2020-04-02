@@ -6,11 +6,13 @@ public class UnitMetaStorage : MonoBehaviour
 
     public UnitMetaData[] unitMetaList;
 
+    /// ====================================
     void Awake()
     {
         current = this;
     }
 
+    /// ====================================
     public UnitMetaData GetUnitMetaByName(string name)
     {
         UnitMetaData unitMetaData = null;

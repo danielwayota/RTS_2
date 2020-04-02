@@ -6,6 +6,16 @@ public class JobInfoUI : MonoBehaviour
     public Text jobNameLabel;
     public Slider jobProgressSlider;
 
+    /// ======================================
+    /// <summary>
+    ///
+    /// </summary>
+    /// <param name="active"></param>
+    public void SetActive(bool active)
+    {
+        this.gameObject.SetActive(active);
+    }
+
     // ======================================
     public void SetJobName(string theName)
     {
