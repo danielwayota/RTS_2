@@ -32,7 +32,7 @@ public class PlayerUnitManager : UnitManager
 
     private CommandMarker marker;
 
-    // ================================
+    /// ==============================================
     void Start()
     {
         this.groundPlane.SetNormalAndPosition(Vector3.up, Vector3.zero);
@@ -40,7 +40,7 @@ public class PlayerUnitManager : UnitManager
         this.status = PUMStatus.IDLE;
     }
 
-    // ======================================
+    /// ==============================================
     void Update()
     {
         this.UnitSelectionRutine();
@@ -48,7 +48,7 @@ public class PlayerUnitManager : UnitManager
         this.UnitCommandRutine();
     }
 
-    /// ================================
+    /// ==============================================
     public void UnitSelectionRutine()
     {
         if (this.status != PUMStatus.IDLE && this.status != PUMStatus.SELECT)
@@ -138,7 +138,7 @@ public class PlayerUnitManager : UnitManager
         }
     }
 
-    /// ============================================
+    /// ==============================================
     /// <summary>
     ///
     /// </summary>
@@ -198,9 +198,15 @@ public class PlayerUnitManager : UnitManager
         {
             this.status = PUMStatus.IDLE;
 
+            float index = 0;
+
             foreach (Unit u in this.selectedUnits)
             {
-                u.ExecuteOrder(this.commandPosition, this.commandRotation);
+                Vector3 offset = Walk.GetPhyllotaxisOffsetByIndex(index, 2);
+
+                u.ExecuteOrder(this.commandPosition + offset, this.commandRotation);
+
+                index++;
             }
 
             this.marker.End();
