@@ -26,8 +26,6 @@
     {
         if (UIManager.current)
         {
-            UIManager.current.ToggleMainBasePanel(this.selected);
-
             if (this.IsSelected)
             {
                 UIManager.current.mainBasePanel.UpdateJobInfo(this.currentJob);

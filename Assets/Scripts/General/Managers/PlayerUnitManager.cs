@@ -135,6 +135,9 @@ public class PlayerUnitManager : UnitManager
                     }
                 }
             }
+
+            UIManager.current.ClearSelection();
+            UIManager.current.GetCurrentUnitSelection(this.selectedUnits);
         }
     }
 
