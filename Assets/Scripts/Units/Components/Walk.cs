@@ -10,9 +10,6 @@ public enum WalkStatus
 [RequireComponent(typeof(NavMeshAgent))]
 public class Walk : MonoBehaviour
 {
-    private float time;
-    private float timeOut = 1f;
-
     private Vector3 targetPosition;
 
     private NavMeshAgent _agent;
@@ -40,41 +37,31 @@ public class Walk : MonoBehaviour
         }
     }
 
-    private Transform destinationFlag;
-    private bool destinationSearchDone = true;
-
-    /// ==============================================
-    void Update()
+    private Transform _destinationFlag;
+    private Transform destinationFlag
     {
-        time += Time.deltaTime;
-
-        if (time > timeOut)
+        get
         {
-            time -= timeOut;
-
-            if (this.status == WalkStatus.MOVING && this.destinationSearchDone == false)
+            if (this._destinationFlag == null)
             {
-                Vector3 positionToCheck = this.targetPosition;
+                var obj = new GameObject($"{this.gameObject.name} - Flag");
 
-                int i = 0;
-                while (this.IsTargetOccupied(positionToCheck) && i < 100)
-                {
-                    positionToCheck += Walk.GetPhyllotaxisOffsetByIndex(i, this.agent.radius * 6);
-                    i++;
-                }
+                var collider = obj.AddComponent(typeof(SphereCollider)) as SphereCollider;
+                collider.radius = this.agent.radius;
 
-                if (i >= 90) { Debug.LogError("Too many iterations: " + i); }
+                obj.layer = LayerMask.NameToLayer("UnitLocationFlag");
 
-                this.SetDestination(positionToCheck);
-                this.destinationSearchDone = true;
+                this._destinationFlag = obj.transform;
             }
+
+            return this._destinationFlag;
         }
     }
 
     /// ==============================================
     private bool IsTargetOccupied(Vector3 pos)
     {
-        Collider[] objs = Physics.OverlapSphere(pos, this.agent.radius, LayerMask.GetMask("AuxUnitLocation"));
+        Collider[] objs = Physics.OverlapSphere(pos, this.agent.radius, LayerMask.GetMask("UnitLocationFlag"));
         bool isOccupied = true;
 
         if (objs.Length == 0)
@@ -96,28 +83,23 @@ public class Walk : MonoBehaviour
     /// ==============================================
     public void SetDestination(Vector3 worldPos)
     {
-        this.destinationSearchDone = false;
+        var positionToCheck = worldPos;
 
-        this.targetPosition = worldPos;
-        this.SetDestinationFlag(worldPos);
+        int i = 0;
+        while (this.IsTargetOccupied(positionToCheck) && i < 100)
+        {
+            positionToCheck = worldPos + Walk.GetPhyllotaxisOffsetByIndex(i, this.agent.radius * 4);
+            i++;
+        }
+
+        this.targetPosition = positionToCheck;
+        this.SetDestinationFlag(positionToCheck);
         this.agent.SetDestination(this.targetPosition);
     }
 
     /// ==============================================
     private void SetDestinationFlag(Vector3 position)
     {
-        if (this.destinationFlag == null)
-        {
-            var obj = new GameObject($"{this.gameObject.name} - Flag");
-
-            var collider = obj.AddComponent(typeof(SphereCollider)) as SphereCollider;
-            collider.radius = this.agent.radius;
-
-            obj.layer = LayerMask.NameToLayer("AuxUnitLocation");
-
-            this.destinationFlag = obj.transform;
-        }
-
         this.destinationFlag.position = position;
     }
 
