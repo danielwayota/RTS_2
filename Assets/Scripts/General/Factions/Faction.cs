@@ -2,30 +2,32 @@
 
 public class Faction : MonoBehaviour
 {
-
-    public FactionPanel factionPanel;
-
     public float maxEnergy = 100000;
 
     public string factionName;
     public Material materialColor;
 
+    private UnitManager _unitManager;
     [HideInInspector]
-    public UnitManager unitManager;
+    public UnitManager unitManager
+    {
+        get
+        {
+            if (this._unitManager == null)
+            {
+                this._unitManager = GetComponent<UnitManager>();
+            }
 
-    private float energy;
+            return this._unitManager;
+        }
+    }
+
+    protected float energy;
 
     // ======================================
-    void Awake()
+    protected virtual void Awake()
     {
-        this.unitManager = GetComponent<UnitManager>();
-
         this.energy = 1000;
-
-        if (this.factionPanel != null)
-        {
-            this.factionPanel.UpdateEnergy(this.energy);
-        }
     }
 
     // ======================================
@@ -35,7 +37,7 @@ public class Faction : MonoBehaviour
     }
 
     // ======================================
-    public float RetrieveEnergy(float amount)
+    public virtual float RetrieveEnergy(float amount)
     {
         if (amount < 0) { Debug.LogError("Trying to retrieve negative energy!"); return 0; }
 
@@ -49,16 +51,11 @@ public class Faction : MonoBehaviour
             this.energy = 0;
         }
 
-        if (this.factionPanel != null)
-        {
-            this.factionPanel.UpdateEnergy(this.energy);
-        }
-
         return amount;
     }
 
     // ======================================
-    public float StoreEnergy(float amount)
+    public virtual float StoreEnergy(float amount)
     {
         if (amount < 0) { Debug.LogError("Trying to store negative energy!"); return 0; }
 
@@ -73,11 +70,6 @@ public class Faction : MonoBehaviour
         else
         {
             this.energy += amount;
-        }
-
-        if (this.factionPanel != null)
-        {
-            this.factionPanel.UpdateEnergy(this.energy);
         }
 
         return amount;

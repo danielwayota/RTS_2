@@ -7,7 +7,7 @@ public class Unit : MonoBehaviour
 
     [HideInInspector]
     public UnitManager manager;
-    [HideInInspector]
+
     public Faction faction;
 
     /// <summary>
