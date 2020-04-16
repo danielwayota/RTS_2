@@ -12,7 +12,7 @@ public class UIManager : MonoBehaviour
     public static UIManager current;
 
     public MainBasePanel mainBasePanel;
-    public TrooperPanel trooperPanel;
+    // public TrooperPanel trooperPanel;
 
     /// =======================================
     void Start()
@@ -25,7 +25,7 @@ public class UIManager : MonoBehaviour
     public void ClearSelection()
     {
         this.mainBasePanel.SetActive(false);
-        this.trooperPanel.SetActive(false);
+        // this.trooperPanel.SetActive(false);
     }
 
     /// =======================================
@@ -76,23 +76,23 @@ public class UIManager : MonoBehaviour
             break;
 
             case UIType.TROOPER:
-                this.trooperPanel.SetActive(true);
+                // this.trooperPanel.SetActive(true);
 
                 // Put avg health in UI
-                float sum = 0;
-                float count = 0;
-                foreach (var unit in currentSelected)
-                {
-                    var health = unit.GetComponent<Health>();
+                // float sum = 0;
+                // float count = 0;
+                // foreach (var unit in currentSelected)
+                // {
+                //     var health = unit.GetComponent<Health>();
 
-                    sum += health.health / (float) health.maxHealth;
+                //     sum += health.health / (float) health.maxHealth;
 
-                    count ++;
-                }
+                //     count ++;
+                // }
 
-                sum /= count;
+                // sum /= count;
 
-                this.trooperPanel.SetHealthPercent(sum);
+                // this.trooperPanel.SetHealthPercent(sum);
             break;
 
             case UIType.MIXED:
