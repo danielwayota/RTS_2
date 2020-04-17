@@ -2,13 +2,23 @@ using UnityEngine;
 
 public class PlayerFaction : Faction
 {
-    protected FactionPanel factionPanel;
+    protected FactionPanel _factionPanel;
+    protected FactionPanel factionPanel
+    {
+        get
+        {
+            if (this._factionPanel == null)
+            {
+                this._factionPanel = FindObjectOfType<FactionPanel>();
+            }
+
+            return this._factionPanel;
+        }
+    }
 
     protected override void Awake()
     {
         base.Awake();
-
-        this.factionPanel = FindObjectOfType<FactionPanel>();
 
         this.factionPanel.UpdateEnergy(this.energy);
     }

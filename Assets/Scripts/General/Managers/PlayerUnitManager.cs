@@ -20,7 +20,20 @@ public class PlayerUnitManager : UnitManager
     [Header("Player Stuff")]
     // PROTOTYPE
     public Camera sceneCamera;
-    public SelectionBox selectionBox;
+
+    protected SelectionBox _selectionBox;
+    protected SelectionBox selectionBox
+    {
+        get
+        {
+            if (this._selectionBox == null)
+            {
+                this._selectionBox = FindObjectOfType<SelectionBox>();
+            }
+
+            return this._selectionBox;
+        }
+    }
 
     private Plane groundPlane;
     // END PROTOTYPE
@@ -100,7 +113,6 @@ public class PlayerUnitManager : UnitManager
 
         if (Input.GetMouseButtonUp(0))
         {
-            this.selectionBox.End();
             this.status = PUMStatus.IDLE;
 
             // La caja de selección es muy pequeña, se asume que ha sido un click.
@@ -138,6 +150,8 @@ public class PlayerUnitManager : UnitManager
 
             UIManager.current.ClearSelection();
             UIManager.current.GetCurrentUnitSelection(this.selectedUnits);
+
+            this.selectionBox.End();
         }
     }
 

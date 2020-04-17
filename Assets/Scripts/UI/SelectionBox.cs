@@ -16,7 +16,7 @@ public class SelectionBox : MonoBehaviour
         this.selectionRect.Set(0, 0, 0, 0);
 
         this.rectTransform = GetComponent<RectTransform>();
-        this.rectTransform.gameObject.SetActive(false);
+        this.End();
 
         this.minSize = (Screen.width * 0.05f + Screen.height * 0.05f) / 2f;
     }
@@ -32,8 +32,6 @@ public class SelectionBox : MonoBehaviour
         this.mouseStart = mousePos;
 
         this.selectionRect.Set(mousePos.x, mousePos.y, 0, 0);
-
-        this.rectTransform.gameObject.SetActive(true);
 
         this.rectTransform.offsetMin = this.selectionRect.min;
         this.rectTransform.offsetMax = this.selectionRect.max;
@@ -75,6 +73,9 @@ public class SelectionBox : MonoBehaviour
     // ================================
     public void End()
     {
-        this.rectTransform.gameObject.SetActive(false);
+        this.selectionRect.Set(0, 0, 0, 0);
+
+        this.rectTransform.offsetMin = this.selectionRect.min;
+        this.rectTransform.offsetMax = this.selectionRect.max;
     }
 }
