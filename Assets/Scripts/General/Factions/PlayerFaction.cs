@@ -2,32 +2,22 @@ using UnityEngine;
 
 public class PlayerFaction : Faction
 {
-    protected FactionPanel _factionPanel;
-    protected FactionPanel factionPanel
-    {
-        get
-        {
-            if (this._factionPanel == null)
-            {
-                this._factionPanel = FindObjectOfType<FactionPanel>();
-            }
-
-            return this._factionPanel;
-        }
-    }
+    protected Message updateEnergyMessage = new Message(Message.UPDATE_FACTION_ENERGY, 0f);
 
     protected override void Awake()
     {
         base.Awake();
 
-        this.factionPanel.UpdateEnergy(this.energy);
+        this.updateEnergyMessage.data = this.energy;
+        MessageBus.current.Send(this.updateEnergyMessage);
     }
 
     public override float RetrieveEnergy(float amount)
     {
         float e = base.RetrieveEnergy(amount);
 
-        this.factionPanel.UpdateEnergy(this.energy);
+        this.updateEnergyMessage.data = this.energy;
+        MessageBus.current.Send(this.updateEnergyMessage);
 
         return e;
     }
@@ -36,7 +26,8 @@ public class PlayerFaction : Faction
     {
         float stored = base.StoreEnergy(amount);
 
-        this.factionPanel.UpdateEnergy(this.energy);
+        this.updateEnergyMessage.data = this.energy;
+        MessageBus.current.Send(this.updateEnergyMessage);
 
         return stored;
     }
