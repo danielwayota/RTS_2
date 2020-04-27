@@ -17,8 +17,8 @@ public class FacionColorPicker : MonoBehaviour
     [Header("Prefabs")]
     public GameObject buttonPrefab;
 
-    private Material playerMaterial;
-    private Material aiMaterial;
+    public Material playerMaterial { get; protected set; }
+    public Material aiMaterial { get; protected set; }
 
     /// ================================================
     /// <summary>

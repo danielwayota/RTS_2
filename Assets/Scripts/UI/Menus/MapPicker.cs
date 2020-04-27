@@ -13,7 +13,7 @@ public class MapPicker : MonoBehaviour
     [Header("Prefabs")]
     public GameObject sceneSelectBtn;
 
-    private string gameMapName;
+    public string gameMapName { get; protected set; }
 
     /// =========================================
     /// <summary>
