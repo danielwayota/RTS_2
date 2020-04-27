@@ -22,7 +22,7 @@ public class MapPicker : MonoBehaviour
     void Awake()
     {
         var randomMapBtn = Instantiate(this.sceneSelectBtn);
-        randomMapBtn.transform.SetParent(this.sceneButtonHolders);
+        randomMapBtn.transform.SetParent(this.sceneButtonHolders, false);
 
         randomMapBtn.GetComponentInChildren<Text>().text = "(?)";
 
@@ -46,7 +46,7 @@ public class MapPicker : MonoBehaviour
         foreach (var name in this.mapNames)
         {
             var mapBtn = Instantiate(this.sceneSelectBtn);
-            mapBtn.transform.SetParent(this.sceneButtonHolders);
+            mapBtn.transform.SetParent(this.sceneButtonHolders, false);
             mapBtn.GetComponentInChildren<Text>().text = name;
 
             var btn = mapBtn.GetComponent<Button>();

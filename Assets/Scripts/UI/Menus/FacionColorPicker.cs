@@ -40,8 +40,8 @@ public class FacionColorPicker : MonoBehaviour
             this.SetPlayerColorButtonEvent(playerGOBtn.GetComponent<Button>(), index);
             this.SetAIColorButtonEvent(aiGOBtn.GetComponent<Button>(), index);
 
-            playerGOBtn.transform.SetParent(this.playerColorBtnContainer);
-            aiGOBtn.transform.SetParent(this.aiColorBtnContainer);
+            playerGOBtn.transform.SetParent(this.playerColorBtnContainer, false);
+            aiGOBtn.transform.SetParent(this.aiColorBtnContainer, false);
 
             index++;
         }
