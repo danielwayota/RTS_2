@@ -51,6 +51,8 @@ public class PlayerUnitManager : UnitManager
         this.groundPlane.SetNormalAndPosition(Vector3.up, Vector3.zero);
 
         this.status = PUMStatus.IDLE;
+
+        this.sceneCamera = FindObjectOfType<Camera>();
     }
 
     /// ==============================================

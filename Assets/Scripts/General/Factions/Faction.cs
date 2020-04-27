@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-public class Faction : MonoBehaviour
+public abstract class Faction : MonoBehaviour
 {
     public float maxEnergy = 100000;
 
@@ -31,6 +31,21 @@ public class Faction : MonoBehaviour
     protected virtual void Awake()
     {
         this.energy = 1000;
+
+        GameObject[] spawns = GameObject.FindGameObjectsWithTag(this.spawnPointTag);
+        int index = Random.Range(0, spawns.Length);
+
+        var targetSpawnPoint = spawns[index];
+
+        var theBaseGO = Instantiate(
+            this.basePrefab,
+            targetSpawnPoint.transform.position,
+            targetSpawnPoint.transform.rotation
+        );
+
+        var theBase = theBaseGO.GetComponent<Base>();
+
+        theBase.faction = this;
     }
 
     // ======================================
