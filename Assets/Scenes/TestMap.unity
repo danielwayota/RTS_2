@@ -169,7 +169,6 @@ Transform:
   m_Children:
   - {fileID: 1835951712}
   - {fileID: 446547794}
-  - {fileID: 1774754686}
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -765,69 +764,6 @@ PrefabInstance:
       objectReference: {fileID: 1835951713}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d9af070041dc7f645945810309267578, type: 3}
---- !u!1 &1774754685
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1774754686}
-  - component: {fileID: 1774754687}
-  m_Layer: 0
-  m_Name: UnitMetaStorage
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1774754686
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1774754685}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 392569541}
-  m_RootOrder: 2
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1774754687
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1774754685}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 099643ce73d1ed346ab1fd7c300b508f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  unitMetaList:
-  - name: Trooper
-    prefab: {fileID: 1907181805575070, guid: 2af5199d00d4e0b47bd07c7dcb2afc77, type: 3}
-    requiredEnergy: 100
-  - name: Tank
-    prefab: {fileID: 8985455883317422049, guid: 91d2fa9ef4dda704ca11d49517321bc9,
-      type: 3}
-    requiredEnergy: 200
-  - name: SolarGenerator
-    prefab: {fileID: 4489541799844355290, guid: a6585fcdb4248aa489261edcd72204b7,
-      type: 3}
-    requiredEnergy: 150
-  - name: Mechanic
-    prefab: {fileID: 5539600613503766788, guid: 4df8fa211f6deb64190e79462c607011,
-      type: 3}
-    requiredEnergy: 100
-  - name: Turret
-    prefab: {fileID: 8487920651285556576, guid: 0b10ae062bf6a984182401767944d7cd,
-      type: 3}
-    requiredEnergy: 250
 --- !u!1 &1835951711
 GameObject:
   m_ObjectHideFlags: 0
@@ -893,7 +829,6 @@ MonoBehaviour:
   commandMarkerPrfb: {fileID: 8896710751804335782, guid: f53b6aaa768c87e4ba6ded719803a88f,
     type: 3}
   sceneCamera: {fileID: 1116050733}
-  selectionBox: {fileID: 0}
 --- !u!1 &1868070002
 GameObject:
   m_ObjectHideFlags: 0
