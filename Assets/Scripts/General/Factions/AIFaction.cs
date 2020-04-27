@@ -1,1 +1,7 @@
-public class AIFaction : Faction {}
+public class AIFaction : Faction
+{
+    protected override void Awake()
+    {
+        base.Awake();
+    }
+}

@@ -4,8 +4,11 @@ public class Faction : MonoBehaviour
 {
     public float maxEnergy = 100000;
 
-    public string factionName;
     public Material materialColor;
+
+    public string spawnPointTag;
+
+    public GameObject basePrefab;
 
     private UnitManager _unitManager;
     [HideInInspector]

@@ -46,3 +46,7 @@ MonoBehaviour:
   ui: {fileID: 9146316969027782882, guid: 998545e9b21b2d244bd502a0d6fa18e8, type: 3}
   unitMetaStorage: {fileID: 6762887770534454515, guid: 3d14d86913603694380794e184d13492,
     type: 3}
+  aiFaction: {fileID: 5362732454296654224, guid: 91151800a5b4e4c4ab646d2d6731f199,
+    type: 3}
+  playerFaction: {fileID: 7092086300475382865, guid: 283d6cb0ae7b0194282c2d3ee9b7084a,
+    type: 3}
