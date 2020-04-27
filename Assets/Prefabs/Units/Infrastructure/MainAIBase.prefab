@@ -392,7 +392,7 @@ GameObject:
   - component: {fileID: 8451602244943934228}
   - component: {fileID: 8421028672582860596}
   m_Layer: 8
-  m_Name: MainAIBase 1
+  m_Name: MainAIBase
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -405,8 +405,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8419862687991241344}
-  m_LocalRotation: {x: -0, y: -0.91387534, z: 0, w: -0.4059949}
-  m_LocalPosition: {x: -35.9, y: 0.97, z: 28}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 8417945934303483446}
@@ -414,7 +414,7 @@ Transform:
   - {fileID: 8416513570455561448}
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: -227.907, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!65 &8374389089692499652
 BoxCollider:
   m_ObjectHideFlags: 0
