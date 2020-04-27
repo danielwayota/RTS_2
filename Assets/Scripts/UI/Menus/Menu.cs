@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Menu : MonoBehaviour
 {
@@ -37,6 +38,16 @@ public class Menu : MonoBehaviour
     /// ==========================================
     public void StartGame()
     {
-        Debug.Log("Start Game");
+        var nextMap = this.mapPicker.gameMapName;
+
+        var dataTransfer = new GameObject();
+        var factionInfo = dataTransfer.AddComponent(typeof(FactionsInfo)) as FactionsInfo;
+
+        factionInfo.playerMaterial = this.colorPicker.playerMaterial;
+        factionInfo.aiMaterial = this.colorPicker.aiMaterial;
+
+        DontDestroyOnLoad(factionInfo);
+
+        SceneManager.LoadScene(nextMap);
     }
 }
