@@ -6,6 +6,12 @@ public class PlayerFaction : Faction
 
     protected override void Awake()
     {
+        var message = FindObjectOfType<FactionsInfo>();
+        if (message != null)
+        {
+            this.materialColor = message.playerMaterial;
+        }
+
         base.Awake();
 
         this.updateEnergyMessage.data = this.energy;
