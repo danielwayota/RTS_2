@@ -39,7 +39,7 @@ public class Mechanic : MobileUnit
             {
                 this.transform.LookAt(unitHealth.transform.position);
 
-                unitHealth.health += this.healingPoints;
+                unitHealth.Restore(this.healingPoints);
 
                 Instantiate(this.healingEffect, unitHealth.transform.position, Quaternion.identity);
             }

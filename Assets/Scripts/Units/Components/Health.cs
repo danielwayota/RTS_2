@@ -4,31 +4,11 @@ public class Health : MonoBehaviour
 {
     public int maxHealth;
 
-    public int health
-    {
-        get { return this.currentHealth; }
-        set
-        {
-            // Damage
-            if (value < this.currentHealth)
-            {
-                this.damageIndicator = 1;
-            }
+    public int health { get => this.currentHealth; }
 
-            this.currentHealth = value;
-            this.currentHealth = Mathf.Clamp(this.currentHealth, 0, this.maxHealth);
+    public bool isDamaged { get => this.currentHealth != this.maxHealth; }
 
-            if (this.currentHealth == 0)
-            {
-                Destroy(this.gameObject);
-            }
-        }
-    }
-
-    public bool isDamaged
-    {
-        get { return this.currentHealth != this.maxHealth; }
-    }
+    public System.Action<Vector3> OnShootReceived;
 
     private int currentHealth;
 
@@ -36,7 +16,7 @@ public class Health : MonoBehaviour
 
     private Renderer[] renderers;
 
-    // ================================
+    /// ================================
     void Awake()
     {
         this.currentHealth = maxHealth;
@@ -44,6 +24,7 @@ public class Health : MonoBehaviour
         this.renderers = GetComponentsInChildren<Renderer>();
     }
 
+    /// ================================
     void SetDamageGlow()
     {
         foreach (var renderer in this.renderers)
@@ -52,6 +33,7 @@ public class Health : MonoBehaviour
         }
     }
 
+    /// ================================
     private void Update()
     {
         if (this.damageIndicator > 0)
@@ -59,6 +41,32 @@ public class Health : MonoBehaviour
             this.SetDamageGlow();
 
             this.damageIndicator -= Time.deltaTime * 2;
+        }
+    }
+
+    /// ================================
+    public void Restore(int amount)
+    {
+        this.currentHealth += amount;
+        this.currentHealth = Mathf.Clamp(this.currentHealth, 0, this.maxHealth);
+    }
+
+    /// ================================
+    public void Damage(int amount, Vector3 direction)
+    {
+        if (this.OnShootReceived != null)
+        {
+            this.OnShootReceived(direction);
+        }
+
+        this.currentHealth -= amount;
+        this.currentHealth = Mathf.Clamp(this.currentHealth, 0, this.maxHealth);
+
+        this.damageIndicator = 1;
+
+        if (this.currentHealth == 0)
+        {
+            Destroy(this.gameObject);
         }
     }
 }

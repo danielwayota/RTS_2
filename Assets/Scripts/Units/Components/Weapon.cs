@@ -59,12 +59,15 @@ public class Weapon : MonoBehaviour
     }
 
     // =================================
-    public void OnProjectileCollision(Projectile projectile, Unit unit)
+    public void OnProjectileCollision(Projectile projectile, Unit otherUnit)
     {
         // Hacer daño a la otra unidad si es un enemigo.
-        if (unit.faction != this.unit.faction)
+        if (otherUnit.faction != this.unit.faction)
         {
-            unit.GetComponent<Health>().health -= this.damage;
+            var health = otherUnit.GetComponent<Health>();
+
+            health.Damage(this.damage, projectile.transform.forward * - 1);
+
             Destroy(projectile.gameObject);
         }
     }
