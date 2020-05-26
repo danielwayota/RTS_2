@@ -31,10 +31,6 @@ public class MobileUnit : Unit
     public override void Init()
     {
         this.lastKnownWalkStatus = this.walk.status;
-
-        var health = this.RequireComponent<Health>();
-
-        health.OnShootReceived += this.ShootReceived;
     }
 
     /// ============================================
@@ -55,14 +51,6 @@ public class MobileUnit : Unit
                 this.StatusChanged();
             }
         }
-    }
-
-    /// ============================================
-    protected void ShootReceived(Vector3 direction)
-    {
-        var target = this.transform.position + direction;
-
-        this.transform.LookAt(target);
     }
 
     /// ============================================

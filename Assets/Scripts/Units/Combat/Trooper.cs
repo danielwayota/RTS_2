@@ -24,6 +24,9 @@ public class Trooper : MobileUnit
 
         this.sensor = this.RequireComponent<Sensor>();
         this.sensor.caller = this;
+
+        var health = this.RequireComponent<Health>();
+        health.OnShootReceived += this.ShootReceived;
     }
 
     // ================================
@@ -76,6 +79,14 @@ public class Trooper : MobileUnit
                 this.weapon.Shoot();
             }
         }
+    }
+
+    /// ============================================
+    protected void ShootReceived(Vector3 direction)
+    {
+        var target = this.transform.position + direction;
+
+        this.transform.LookAt(target);
     }
 
     /// =================================
