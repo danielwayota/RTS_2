@@ -5,8 +5,11 @@ public class Trooper : MobileUnit
 {
     [Header("Trooper")]
 
-    private float time;
-    private float timeOut = .25f;
+    private float visionTime;
+    private float visionTimeOut = .25f;
+
+    private float alertTime;
+    private float alertTimeOut = .5f;
 
     private Weapon weapon;
 
@@ -27,19 +30,42 @@ public class Trooper : MobileUnit
     protected override void Update()
     {
         base.Update();
-        this.time += Time.deltaTime;
+        this.visionTime += Time.deltaTime;
+        this.alertTime += Time.deltaTime;
 
         // Reloj para verificar si hay enemigos cerca.
         //  Si no hay y la unidad está detenida,
         //  se genera una rotación aleatoria para simular "vigilancia"
-        if (this.time > this.timeOut)
+        if (this.visionTime > this.visionTimeOut)
         {
-            this.time = 0;
+            this.visionTime = 0;
 
             this.currentTarget = this.GetVisibleEnemy();
         }
 
-        // No hay enemigos cerca, estado de vigilancia.
+        if (this.alertTime > this.alertTimeOut)
+        {
+            this.alertTime = 0;
+
+            if (this.currentTarget != null)
+            {
+                this.faction.PushAlert(this.currentTarget.transform.position);
+            }
+            else
+            {
+                Alert alert = this.faction.PullNearAlert(
+                    this.transform.position,
+                    this.sensor.maxViewDistance
+                );
+
+                if (alert != null)
+                {
+                    this.transform.LookAt(alert.position);
+                }
+            }
+        }
+
+        // Enemigo a la vista
         if (this.currentTarget != null)
         {
             Vector3 target = this.currentTarget.transform.position;

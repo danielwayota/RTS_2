@@ -1,4 +1,7 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using System.Linq;
+
+using UnityEngine;
 
 public abstract class Faction : MonoBehaviour
 {
@@ -27,6 +30,8 @@ public abstract class Faction : MonoBehaviour
 
     protected float energy;
 
+    private List<Alert> alerts;
+
     // ======================================
     protected virtual void Awake()
     {
@@ -46,6 +51,24 @@ public abstract class Faction : MonoBehaviour
         var theBase = theBaseGO.GetComponent<Base>();
 
         theBase.faction = this;
+
+        this.alerts = new List<Alert>();
+    }
+
+    // ======================================
+    void Update()
+    {
+        int length = this.alerts.Count;
+        for (int i = length - 1; i >= 0 ; i--)
+        {
+            var alert = this.alerts[i];
+            alert.time -= Time.deltaTime;
+
+            if (alert.time <= 0)
+            {
+                this.alerts.RemoveAt(i);
+            }
+        }
     }
 
     // ======================================
@@ -91,5 +114,48 @@ public abstract class Faction : MonoBehaviour
         }
 
         return amount;
+    }
+
+    public void PushAlert(Vector3 position)
+    {
+        var tmp = new Alert(position, 1f);
+        this.alerts.Add(tmp);
+    }
+
+    public Alert PullNearAlert(Vector3 position, float maxDistance)
+    {
+        if (this.alerts.Count == 0)
+            return null;
+
+        Alert nearest = null;
+        float nearestSqDistance = 0;
+
+        float sqMaxDistance = Mathf.Pow(maxDistance, 2);
+
+        int length = this.alerts.Count;
+        for (int i = length - 1; i >= 0 ; i--)
+        {
+            var alert = this.alerts[i];
+
+            float sqDistance = (alert.position - position).sqrMagnitude;
+
+            if (sqDistance > sqMaxDistance)
+            {
+                continue;
+            }
+
+            if (nearest == null || (sqDistance < nearestSqDistance))
+            {
+                nearest = alert;
+                nearestSqDistance = sqDistance;
+            }
+        }
+
+        if (nearest != null)
+        {
+            this.alerts.Remove(nearest);
+        }
+
+        return nearest;
     }
 }
