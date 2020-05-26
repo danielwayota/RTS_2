@@ -14,7 +14,7 @@ public class Projectile : MonoBehaviour
     }
 
     // ================================
-    void OnCollisionEnter(Collision other)
+    void OnTriggerEnter(Collider other)
     {
         Unit u = other.gameObject.GetComponent<Unit>();
 

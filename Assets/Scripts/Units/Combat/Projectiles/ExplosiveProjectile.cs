@@ -9,7 +9,7 @@ public class ExplosiveProjectile : Projectile
 
     public LayerMask unitsLayer;
 
-    void OnCollisionEnter(Collision other)
+    void OnTriggerEnter(Collider other)
 	{
         Collider[] nearUnits = Physics.OverlapSphere(
             this.transform.position,
