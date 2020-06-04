@@ -82,6 +82,8 @@ public class Base : Unit
     protected virtual void OnJobUpdate(Job job) { }
     protected virtual void OnJobRetrievedFromQueue(Job job) { }
 
+    protected virtual void OnUnitCreated(Unit unit) { }
+
     // ========================================
     private void OnFinishedJob(Job j)
     {
@@ -102,6 +104,8 @@ public class Base : Unit
         u.faction = this.faction;
 
         u.ExecuteOrder(j.targetPosition, j.targetRotation);
+
+        this.OnUnitCreated(u);
     }
 
     // ========================================

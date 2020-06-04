@@ -21,10 +21,11 @@ public class UnitMetaStorage : MonoBehaviour
         {
             if (this.unitMetaList[i].name == name)
             {
-                unitMetaData = this.unitMetaList[i];
+                return this.unitMetaList[i];
             }
         }
 
+        Debug.LogError($"<UnitMetaStorage> '{name}' not found!");
         return unitMetaData;
     }
 }
