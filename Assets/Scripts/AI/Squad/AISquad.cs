@@ -8,6 +8,7 @@ public class AISquad
 
     protected int targetCount;
 
+    /// ====================================================
     public bool isEmpty
     {
         get
@@ -17,7 +18,6 @@ public class AISquad
             {
                 if (this.units[i] == null)
                 {
-                    Debug.Log("NULL UNIT");
                     this.units.RemoveAt(i);
                 }
             }
@@ -26,16 +26,36 @@ public class AISquad
         }
     }
 
+    /// ====================================================
     public bool isComplete
     {
         get => this.units.Count == this.targetCount;
     }
 
+    /// ====================================================
+    /// <summary>
+    /// Ctor.
+    /// </summary>
+    /// <param name="type"></param>
+    /// <param name="targetCount"></param>
     public AISquad(AISquadType type, int targetCount)
     {
         this.type = type;
         this.units = new List<Unit>();
 
         this.targetCount = targetCount;
+    }
+
+    /// ====================================================
+    /// <summary>
+    ///
+    /// </summary>
+    /// <param name="target"></param>
+    public void ExecuteOrder(Vector3 target)
+    {
+        foreach (var unit in this.units)
+        {
+            unit.ExecuteOrder(target, Quaternion.identity);
+        }
     }
 }
