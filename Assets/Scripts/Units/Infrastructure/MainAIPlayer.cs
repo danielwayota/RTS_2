@@ -29,8 +29,11 @@ public class MainAIPlayer : Base
 
     // Exploration
     private AIControlPoint lastPointVisited;
-    private int exploreTimer = 0;
-    private int exploreMaxTimer = 16;
+    private int exploreCoolDown = 0;
+    private int exploreMaxCoolDown = 16;
+
+    // Attack
+    private int attackCoolDown = 0;
 
     /// ===============================================
     /// <summary>
@@ -125,6 +128,18 @@ public class MainAIPlayer : Base
         {
             this.timer -= this.timeOut;
 
+            foreach (var alert in this.faction.alerts)
+            {
+                foreach (var control in this.controlPoints)
+                {
+                    if (control.isInRange(alert.origin))
+                    {
+                        control.alertLevel += 10;
+                    }
+                }
+            }
+
+            // Limpia los escuadrones vacíos.
             AISquad emptySquad = null;
             foreach (var item in this.availableSquads)
             {
@@ -229,9 +244,9 @@ public class MainAIPlayer : Base
             return;
         }
 
-        if (this.exploreTimer > 0)
+        if (this.exploreCoolDown > 0)
         {
-            this.exploreTimer--;
+            this.exploreCoolDown--;
             return;
         }
 
@@ -244,7 +259,7 @@ public class MainAIPlayer : Base
         squad.ExecuteOrder(nextPoint.transform.position);
 
         this.lastPointVisited = nextPoint;
-        this.exploreTimer = this.exploreMaxTimer;
+        this.exploreCoolDown = this.exploreMaxCoolDown;
     }
 
     /// ===============================================
@@ -253,6 +268,37 @@ public class MainAIPlayer : Base
     /// </summary>
     private void Attack()
     {
-        // TODO: Buscar los puntos con alerta y mandar unidades.
+        if (this.attackCoolDown > 0)
+        {
+            this.attackCoolDown --;
+            return;
+        }
+
+        IOrderedEnumerable<AIControlPoint> sortedByDanger = this.controlPoints.OrderByDescending((c) => c.alertLevel);
+
+        foreach (var control in sortedByDanger)
+        {
+            if (control.alertLevel < 1)
+                break;
+
+            if (this.availableSquads.ContainsKey(AISquadType.ATTACK_HEAVY))
+            {
+                var squad = this.availableSquads[AISquadType.ATTACK_HEAVY];
+                squad.ExecuteOrder(control.transform.position);
+
+                this.availableSquads.Remove(AISquadType.ATTACK_HEAVY);
+
+                this.attackCoolDown++;
+            }
+            else if (this.availableSquads.ContainsKey(AISquadType.ATTACK_LIGHT))
+            {
+                var squad = this.availableSquads[AISquadType.ATTACK_LIGHT];
+                squad.ExecuteOrder(control.transform.position);
+
+                this.availableSquads.Remove(AISquadType.ATTACK_LIGHT);
+
+                this.attackCoolDown++;
+            }
+        }
     }
 }

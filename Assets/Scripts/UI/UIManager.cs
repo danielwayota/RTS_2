@@ -96,7 +96,6 @@ public class UIManager : MonoBehaviour
             break;
 
             case UIType.MIXED:
-                // TODO: Make mixed UI
             break;
         }
     }

@@ -30,7 +30,7 @@ public abstract class Faction : MonoBehaviour
 
     protected float energy;
 
-    private List<Alert> alerts;
+    public List<Alert> alerts { private set; get; }
 
     // ======================================
     protected virtual void Awake()
@@ -59,7 +59,7 @@ public abstract class Faction : MonoBehaviour
     void Update()
     {
         int length = this.alerts.Count;
-        for (int i = length - 1; i >= 0 ; i--)
+        for (int i = length - 1; i >= 0; i--)
         {
             var alert = this.alerts[i];
             alert.time -= Time.deltaTime;
@@ -116,9 +116,9 @@ public abstract class Faction : MonoBehaviour
         return amount;
     }
 
-    public void PushAlert(Vector3 position)
+    public void PushAlert(Vector3 position, Vector3 origin)
     {
-        var tmp = new Alert(position, 1f);
+        var tmp = new Alert(position, origin, 1f);
         this.alerts.Add(tmp);
     }
 
@@ -133,7 +133,7 @@ public abstract class Faction : MonoBehaviour
         float sqMaxDistance = Mathf.Pow(maxDistance, 2);
 
         int length = this.alerts.Count;
-        for (int i = length - 1; i >= 0 ; i--)
+        for (int i = length - 1; i >= 0; i--)
         {
             var alert = this.alerts[i];
 

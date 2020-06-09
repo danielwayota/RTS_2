@@ -52,7 +52,10 @@ public class Trooper : MobileUnit
 
             if (this.currentTarget != null)
             {
-                this.faction.PushAlert(this.currentTarget.transform.position);
+                this.faction.PushAlert(
+                    this.currentTarget.transform.position,
+                    this.transform.position
+                );
             }
             else
             {
